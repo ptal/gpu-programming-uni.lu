@@ -93,7 +93,7 @@ long benchmark_one_ms(F&& f) {
   auto start = std::chrono::steady_clock::now();
   f();
   auto end = std::chrono::steady_clock::now();
-  return std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() / 10;
+  return std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 }
 
 #endif

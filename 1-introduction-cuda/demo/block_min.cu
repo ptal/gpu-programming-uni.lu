@@ -20,13 +20,22 @@ __global__ void parallel_min_stride(int* v, size_t n, int* local_min) {
   }
 }
 
+__global__ void parallel_min_stride_shared(int* v, size_t n, int* local_min) {
+  extern __shared__ int shared_mem[];
+  shared_mem[threadIdx.x] = INT_MAX;
+  for(size_t i = threadIdx.x; i < n; i += blockDim.x) {
+    shared_mem[threadIdx.x] = min(shared_mem[threadIdx.x], v[i]);
+  }
+  local_min[threadIdx.x] = shared_mem[threadIdx.x];
+}
+
 int main(int argc, char** argv) {
   if(argc != 3) {
     std::cout << "usage: " << argv[0] << " <vector size> <threads-per-block>" << std::endl;
     std::cout << "example: " << argv[0] << " 1000000000 512" << std::endl;
     exit(1);
   }
-  size_t n = std::stoi(argv[1]);
+  size_t n = std::stoll(argv[1]);
   size_t threads_per_block = std::stoi(argv[2]);
 
   // I. Initialize and allocate in managed memory the array of numbers.
@@ -45,7 +54,13 @@ int main(int argc, char** argv) {
     parallel_min_stride<<<1, threads_per_block>>>(v, n, local_min);
     CUDIE(cudaDeviceSynchronize());
   });
-  std::cout << "GPU (contiguous memory accesses): " << gpu_strided_ms << " ms" << std::endl;
+  std::cout << "GPU (coalesced memory accesses): " << gpu_strided_ms << " ms" << std::endl;
+
+  // long gpu_shared = benchmark_ms([&]{
+  //   parallel_min_stride_shared<<<1, threads_per_block, threads_per_block*sizeof(int)>>>(v, n, local_min);
+  //   CUDIE(cudaDeviceSynchronize());
+  // });
+  // std::cout << "GPU (coalesced memory accesses, shared memory): " << gpu_shared << " ms" << std::endl;
 
   // III. Find the true minimum among all local minimum computed on the GPU.
   int res = local_min[0];

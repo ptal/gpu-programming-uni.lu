@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
     std::cout << "example: " << argv[0] << " 1000000000 256 256" << std::endl;
     exit(1);
   }
-  size_t n = std::stoi(argv[1]);
+  size_t n = std::stoll(argv[1]);
   size_t threads_per_block = std::stoi(argv[2]);
   size_t num_blocks = std::stoi(argv[3]);
 
