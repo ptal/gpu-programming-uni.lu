@@ -17,7 +17,7 @@ void floyd_warshall_cpu(std::vector<std::vector<int>>& d) {
   }
 }
 
-void floyd_warshall_gpu(int **d, size_t n) {
+__global__ void floyd_warshall_gpu(int **d, size_t n) {
   // d = new int*[n];
   for(int k = 0; k < n; ++k) {
     for(int i = 0; i < n; ++i) {
@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
   // III. Running Floyd Warshall on GPU (single core).
 
   long gpu_ms = benchmark_one_ms([&]{
-    floyd_warshall_gpu(gpu_distances, n);
+    floyd_warshall_gpu<<<1, 1>>>(gpu_distances, n);
   });
   std::cout << "GPU: " << gpu_ms << " ms" << std::endl;
 
