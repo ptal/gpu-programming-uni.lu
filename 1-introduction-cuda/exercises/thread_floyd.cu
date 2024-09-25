@@ -17,18 +17,18 @@ void floyd_warshall_cpu(std::vector<std::vector<int>>& d) {
   }
 }
 
-void floyd_warshall_gpu(int** d) {
-  size_t n = **d;
-  for(int k = 0; k < n; ++k) {
-    for(int i = 0; i < n; ++i) {
-      for(int j = 0; j < n; ++j) {
-        if(d[i][j] > d[i][k] + d[k][j]) {
-          d[i][j] = d[i][k] + d[k][j];
-        }
-      }
-    }
-  }
-}
+// void floyd_warshall_gpu(int** d) {
+//   size_t n = **d;
+//   for(int k = 0; k < n; ++k) {
+//     for(int i = 0; i < n; ++i) {
+//       for(int j = 0; j < n; ++j) {
+//         if(d[i][j] > d[i][k] + d[k][j]) {
+//           d[i][j] = d[i][k] + d[k][j];
+//         }
+//       }
+//     }
+//   }
+// }
 
 int main(int argc, char** argv) {
   if(argc != 2) {
