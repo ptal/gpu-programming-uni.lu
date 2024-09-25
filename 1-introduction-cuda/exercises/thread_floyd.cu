@@ -50,10 +50,10 @@ int main(int argc, char** argv) {
 
   // III. Running Floyd Warshall on GPU (single core).
 
-  long gpu_ms = benchmark_one_ms([&]{
-    floyd_warshall_gpu(gpu_distances);
-  });
-  std::cout << "GPU: " << gpu_ms << " ms" << std::endl;
+  // long gpu_ms = benchmark_one_ms([&]{
+  //   floyd_warshall_gpu(gpu_distances);
+  // });
+  // std::cout << "GPU: " << gpu_ms << " ms" << std::endl;
 
   // TODO
 
