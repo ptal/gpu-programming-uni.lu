@@ -16,17 +16,22 @@
   }}
 
 /** Initialize a matrix of size `n` with elements between 0 and 99. */
-std::vector<std::vector<int>> initialize_distances(size_t n) {
-  std::vector<std::vector<int>> distances(n, std::vector<int>(n));
+template <class T>
+std::vector<std::vector<T>> initialize_distances_gen(size_t n) {
+  std::vector<std::vector<T>> distances(n, std::vector<T>(n));
   // std::mt19937 m{std::random_device{}()};
   std::mt19937 m{0}; // fixed seed to ease debugging.
-  std::uniform_int_distribution<int> dist{0, 99};
+  std::uniform_int_distribution<T> dist{0, 99};
   for(int i = 0; i < n; ++i) {
     for(int j = 0; j < n; ++j) {
       distances[i][j] = dist(m);
     }
   }
   return std::move(distances);
+}
+
+std::vector<std::vector<int>> initialize_distances(size_t n) {
+  return initialize_distances_gen<int>(n);
 }
 
 /** Initialize an array of size `n` in managed memory. */
@@ -40,7 +45,8 @@ int* init_random_vector(size_t n) {
 }
 
 /** Compare two matrices to ensure they are equal. */
-void check_equal_matrix(const std::vector<std::vector<int>>& cpu_distances, int** gpu_distances) {
+template <class T>
+void check_equal_matrix(const std::vector<std::vector<T>>& cpu_distances, T** gpu_distances) {
   for(size_t i = 0; i < cpu_distances.size(); ++i) {
     for(size_t j = 0; j < cpu_distances.size(); ++j) {
       if(cpu_distances[i][j] != gpu_distances[i][j]) {
@@ -52,12 +58,13 @@ void check_equal_matrix(const std::vector<std::vector<int>>& cpu_distances, int*
 }
 
 /** Copy a CPU matrix to the managed memory of the GPU. */
-int** initialize_gpu_distances(const std::vector<std::vector<int>>& distances) {
+template <class T>
+T** initialize_gpu_distances(const std::vector<std::vector<T>>& distances) {
   size_t n = distances.size();
-  int** gpu_distances;
-  CUDIE(cudaMallocManaged(&gpu_distances, sizeof(int*) * n));
+  T** gpu_distances;
+  CUDIE(cudaMallocManaged(&gpu_distances, sizeof(T*) * n));
   for(int i = 0; i < n; ++i) {
-    CUDIE(cudaMallocManaged(&gpu_distances[i], sizeof(int) * n));
+    CUDIE(cudaMallocManaged(&gpu_distances[i], sizeof(T) * n));
   }
   for(int i = 0; i < distances.size(); ++i) {
     for(int j = 0; j < distances[i].size(); ++j) {
@@ -68,7 +75,8 @@ int** initialize_gpu_distances(const std::vector<std::vector<int>>& distances) {
 }
 
 /** Deallocating the GPU matrix. */
-void deallocate_gpu_distances(int** gpu_distances, size_t n) {
+template <class T>
+void deallocate_gpu_distances(T** gpu_distances, size_t n) {
   for(int i = 0; i < n; ++i) {
     cudaFree(gpu_distances[i]);
   }
