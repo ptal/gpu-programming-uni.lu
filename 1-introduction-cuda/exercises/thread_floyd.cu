@@ -52,6 +52,7 @@ int main(int argc, char** argv) {
 
   long gpu_ms = benchmark_one_ms([&]{
     floyd_warshall_gpu<<<1, 1>>>(gpu_distances, n);
+    cudaDeviceSynchronize();
   });
   std::cout << "GPU: " << gpu_ms << " ms" << std::endl;
 
