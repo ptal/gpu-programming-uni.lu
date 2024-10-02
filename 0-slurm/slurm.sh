@@ -1,10 +1,11 @@
 #!/bin/bash -l
 #SBATCH --time=00:05:00
-#SBATCH --reservation=GPU_Programming_9d_25
+#SBATCH --reservation=GPU_Programming_10d_2
 #SBATCH --nodes=1
 #SBATCH --partition=gpu
 #SBATCH --qos=default
 #SBATCH --cpus-per-task=1
+#SBATCH --gpus-per-task=1
 #SBATCH --export=ALL
 #SBATCH --output=slurm.out
 
