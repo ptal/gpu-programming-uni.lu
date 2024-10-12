@@ -48,18 +48,20 @@ void scan( std::vector<T>& v ) {
 }
 
 template<typename T>
-__device__ void update_sums( T* const v, size_t const n, size_t const p, size_t const p_next ) {
-  size_t k = threadIdx.x;
-  if ( k >= p && k < n ) {
-    v[k] += v[k - p];
+__forceinline__ __device__ void update_sums( T* const v, size_t const n, size_t const p, size_t const p_next ) {
+  size_t const k = threadIdx.x;
+  size_t const offset = blockIdx.x * blockDim.x;
+  size_t const idx = offset + k;
+  if ( k >= p && idx < n ) {
+    v[idx] += v[idx - p];
   }
 }
 
 template<typename T>
-__global__ void naive_parallel_binary_scan( T* const v, size_t const n ) {
+__device__ void block_naive_parallel_binary_scan( T* const v, size_t const n ) {
   size_t p = 1;
   size_t p_next = 2*p;
-  while ( p < n ) {
+  while ( p < n && p < blockDim.x ) {
     update_sums( v, n, p, p_next );
     p = p_next;
     p_next = 2*p;
@@ -67,19 +69,85 @@ __global__ void naive_parallel_binary_scan( T* const v, size_t const n ) {
   }
 }
 
-int main(int argc, char** argv) {
-  if ( argc != 2 ) {
-    std::cout << "Usage: " << argv[0] << " <vector size>" << std::endl;
+template<typename T>
+__global__ void step_block_naive_parallel_binary_scan( T* const v, size_t const n, T* v_cumulative ) {
+  block_naive_parallel_binary_scan( v, n );
+
+  size_t const idx = threadIdx.x + blockIdx.x * blockDim.x;
+  if ( (idx+1) % blockDim.x == 0 ) {
+    v_cumulative[blockIdx.x] = v[idx];
+  }
+  //printf("%llu mod %llu + %llu: %lld \n", idx, static_cast<uint64_t>(blockDim.x),  static_cast<uint64_t>(blockIdx.x), v[idx]);
+}
+
+template<typename T>
+__global__ void single_block_naive_parallel_binary_scan( T* const v, size_t const n ) {
+  block_naive_parallel_binary_scan( v, n );
+}
+
+template<typename T>
+__global__ void add_subblocks( T* const v, size_t const n, T* const increments ) {
+  size_t const idx = threadIdx.x + blockIdx.x * blockDim.x;
+
+  //printf("%llu, %llu: %lld \n", idx, static_cast<uint64_t>(blockIdx.x), increments[blockIdx.x]);
+
+  if ( idx / blockDim.x > 0 ) {
+    v[idx] += increments[blockIdx.x-1];
+  }
+}
+
+template<typename T>
+void naive_parallel_binary_scan( T* const v, size_t const n, size_t const block_size )
+{
+  size_t n_blocks = n / block_size;
+  if ( n % block_size != 0 ) {
+    n_blocks++;
+  }
+
+  if ( n_blocks <= 1 ) {
+    dim3 threadsPerBlock(block_size);
+    dim3 numBlocks(1);
+
+    single_block_naive_parallel_binary_scan<<<numBlocks,threadsPerBlock>>>(v, n);
+    try_cuda( cudaDeviceSynchronize() );
+  } else {
+    T* v_comulative;
+    try_cuda( cudaMalloc(&v_comulative, n_blocks) );
+
+    dim3 threadsPerBlcok(block_size);
+    dim3 numBlocks(n_blocks);
+    step_block_naive_parallel_binary_scan<<<n_blocks, block_size>>>(v, n, v_comulative);
+    try_cuda( cudaDeviceSynchronize() );
+
+    naive_parallel_binary_scan( v_comulative, n_blocks, block_size );
+    add_subblocks<<<n_blocks, block_size>>>( v, n, v_comulative );
+    try_cuda( cudaDeviceSynchronize() );
+
+    try_cuda( cudaFree(v_comulative) );
+  }
+}
+
+int main( int argc, char** argv ) {
+  if ( argc != 3 ) {
+    std::cout << "Usage: " << argv[0]
+      << " <vector size>"
+      << " <block size>"
+      << std::endl;
     exit(EXIT_FAILURE);
   }
 
   size_t n = std::stoll(argv[1]);
+  size_t block_size = std::stoll(argv[2]);
 
   // 1. Initialize a vector
   std::vector<int64_t> v_cpu;
-  int64_t seed_value = 0;
+  //// Random initialization
   //int64_t seed_value = static_cast<int64_t>(std::random_device{}());
-  append_random(v_cpu, n, std::seed_seq{seed_value});
+  //// Random initialization with fixed seed
+  //int64_t seed_value = 0;
+  //append_random(v_cpu, n, std::seed_seq{seed_value});
+  // Initialization with ones for debugging
+  std::fill_n(std::back_inserter(v_cpu), n, 1);
 
   // 2. Initialize GPU global vector and set up data transfer to and from the GPU
   int64_t* v_gpu_synced;
@@ -88,8 +156,7 @@ int main(int argc, char** argv) {
   // 3. Copy data to the GPU
   std::copy( v_cpu.begin(), v_cpu.end(), v_gpu_synced );
 
-  naive_parallel_binary_scan<<<1, n>>>( v_gpu_synced, n );
-  try_cuda( cudaDeviceSynchronize() );
+  naive_parallel_binary_scan( v_gpu_synced, n, block_size );
 
   // 4. Test results
   scan( v_cpu );
