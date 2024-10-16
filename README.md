@@ -40,6 +40,10 @@ Of course, the vector cannot be allocated on the CPU since it is using `global_a
 Measure the performance with atomics.
 * Think about another way to avoid the usage of atomics.
 
+## Project: Prefix Parallel Sum
+
+The project description is [available here](https://github.com/ptal/gpu-programming-uni.lu/tree/main/3-scan/README.md).
+
 ### Acknowledgments
 
 Some exercises are inspired from the course [Parallel Computing](https://gfxcourses.stanford.edu/cs149/fall23/) at Stanford and used with the permission of Kayvon Fatahalian.
