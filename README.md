@@ -26,19 +26,9 @@ void saxpy(float scale, const std::vector<float>& X, const std::vector<float>& Y
 4. Measure the time taken by your kernel excluding and including the memory transfer.
 5. [Optional⭐] Set up a CMake project inspired by `2-cuda/floyd`.
 
-### Atomic Floyd Warshall [`2-cuda/floyd`]
+### Floyd Warshall [`2-cuda/floyd`]
 
 * Modify Floyd Warshall to use `battery::vector<int, battery::managed_allocator>` instead of `int**` (check [this tutorial](https://lattice-land.github.io/2-cuda-battery.html)).
-*  [Optional⭐⭐] Due to torn read/write (see lecture 3 of "parallel and grid computing"), our implementation of Floyd Warshall is, in theory, incorrect.
-Wrap the integers in an atomic:
-```c++
-namespace bt = battery;
-using atomic_int = bt::atomic_memory_grid::atomic_type<int>;
-bt::vector<atomic_int, bt::global_allocator> v(10);
-```
-Of course, the vector cannot be allocated on the CPU since it is using `global_allocator`, hence you must initialized it in a kernel first through a `unique_ptr` (you can use the vector already declared in managed memory to initialize it).
-Measure the performance with atomics.
-* Think about another way to avoid the usage of atomics.
 
 ## Project: Prefix Parallel Sum
 
