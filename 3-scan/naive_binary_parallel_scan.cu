@@ -61,23 +61,24 @@ void scan( std::vector<T>& v ) {
 }
 
 template<typename T>
-__forceinline__ __device__ void update_sums( T* const v, size_t const n, size_t const p, size_t const p_next ) {
-  size_t const k = threadIdx.x;
-  size_t const offset = blockIdx.x * blockDim.x;
-  size_t const idx = offset + k;
-  if ( k >= p && idx < n ) {
-    v[idx] += v[idx - p];
+__forceinline__ __device__ void update_sums( T* const v, size_t const n, size_t const p ) {
+  size_t const idx = blockIdx.x * blockDim.x + threadIdx.x;
+  T const v_next = v[idx];
+  if ( threadIdx.x >= p && idx < n ) {
+    v_next += v[idx - p];
+  }
+  __syncthreads();
+  if ( threadIdx.x >= p && idx < n ) {
+    v[idx] = v_next;
   }
 }
 
 template<typename T>
 __device__ void block_naive_parallel_binary_scan( T* const v, size_t const n ) {
   size_t p = 1;
-  size_t p_next = 2*p;
   while ( p < n && p < blockDim.x ) {
-    update_sums( v, n, p, p_next );
-    p = p_next;
-    p_next = 2*p;
+    update_sums( v, n, p );
+    p = 2*p;
     __syncthreads();
   }
 }
