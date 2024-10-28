@@ -72,17 +72,6 @@ __forceinline__ __device__ void update_sums( T* const v, size_t const n, size_t 
 
 template<typename T>
 __device__ void block_naive_parallel_binary_scan( T* const v, size_t const n ) {
-  //size_t const idx = threadIdx.x + blockIdx.x * blockDim.x;
-
-  //__syncthreads();
-  //if ( idx == 0 ) {
-  //  printf("\n\nPRE\n\n");
-  //  for (uint64_t i = 0; i < blockDim.x*gridDim.x && i < n; i++ ) {
-  //    printf("%llu: %lld \n", i, v[i]);
-  //  }
-  //}
-  //__syncthreads();
-
   size_t p = 1;
   size_t p_next = 2*p;
   while ( p < n && p < blockDim.x ) {
@@ -91,15 +80,6 @@ __device__ void block_naive_parallel_binary_scan( T* const v, size_t const n ) {
     p_next = 2*p;
     __syncthreads();
   }
-
-  //__syncthreads();
-  //if ( idx == 0 ) {
-  //  printf("\n\nPOST\n\n");
-  //  for (uint64_t i = 0; i < blockDim.x*gridDim.x && i < n; i++ ) {
-  //    printf("%llu: %lld \n", i, v[i]);
-  //  }
-  //}
-  //__syncthreads();
 }
 
 template<typename T>
@@ -110,17 +90,7 @@ __global__ void step_block_naive_parallel_binary_scan( T* const v, size_t const 
 
   if ( threadIdx.x + 1 == blockDim.x && idx < n ) {
     v_cumulative[blockIdx.x] = v[idx];
-    //printf("%llu = %llu * %llu + %llu mod %llu: %lld \n", idx, static_cast<uint64_t>(blockIdx.x), static_cast<uint64_t>(blockDim.x), static_cast<uint64_t>(threadIdx.x), static_cast<uint64_t>(blockDim.x), v[idx]);
   }
-
-  //__syncthreads();
-  //  printf("\n\nHERE\n\n");
-  //if ( idx == 0 ) {
-  //  for (uint64_t i = 0; i < blockDim.x*gridDim.x && i < n; i++ ) {
-  //    printf("%llu, %llu: %lld, %lld \n", i, static_cast<uint64_t>(i/blockDim.x), v[i], v_cumulative[i/blockDim.x]);
-  //  }
-  //}
-  //__syncthreads();
 }
 
 template<typename T>
@@ -132,27 +102,9 @@ template<typename T>
 __global__ void add_subblocks( T* const v, size_t const n, T const* const increments ) {
   size_t const idx = threadIdx.x + blockIdx.x * blockDim.x; 
 
-  //printf("%llu, %llu: %lld \n", idx, static_cast<uint64_t>(blockIdx.x), increments[blockIdx.x]);
-
-  //__syncthreads();
-  //if ( idx == 0 ) {
-  //  printf("\n\nPRE\n\n");
-  //  for (uint64_t i = 0; i < blockDim.x*gridDim.x && i < n; i++ ) {
-  //    printf("%llu, %llu: %lld, %lld \n", i, static_cast<uint64_t>(i/blockDim.x), v[i], increments[i/blockDim.x]);
-  //  }
-  //}
-  //__syncthreads();
   if ( blockIdx.x > 0 && idx < n ) {
     v[idx] += increments[blockIdx.x-1];
   }
-  //__syncthreads();
-  //if ( idx == 0 ) {
-  //  printf("\n\nPOST\n\n");
-  //  for (uint64_t i = 0; i < blockDim.x*gridDim.x && i < n; i++ ) {
-  //    printf("%llu, %llu: %lld, %lld \n", i, static_cast<uint64_t>(i/blockDim.x), v[i], increments[i/blockDim.x]);
-  //  }
-  //}
-  //__syncthreads();
 }
 
 template<typename T>
