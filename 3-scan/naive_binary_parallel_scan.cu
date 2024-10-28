@@ -108,7 +108,7 @@ __global__ void step_block_naive_parallel_binary_scan( T* const v, size_t const 
 
   size_t const idx = threadIdx.x + blockIdx.x * blockDim.x;
 
-  if ( (idx+1) % blockDim.x == 0 && idx < n ) {
+  if ( threadIdx.x + 1 == blockDim.x && idx < n ) {
     v_cumulative[blockIdx.x] = v[idx];
     //printf("%llu = %llu * %llu + %llu mod %llu: %lld \n", idx, static_cast<uint64_t>(blockIdx.x), static_cast<uint64_t>(blockDim.x), static_cast<uint64_t>(threadIdx.x), static_cast<uint64_t>(blockDim.x), v[idx]);
   }
@@ -165,10 +165,8 @@ void naive_parallel_binary_scan( T* const v, size_t const n, size_t const block_
   }
   dim3 const threadsPerBlock(block_size);
 
-  //printf("HERE\n");
   if ( n_blocks <= 1 ) {
     dim3 const numBlocks(1);
-
     single_block_naive_parallel_binary_scan<<<numBlocks,threadsPerBlock>>>(v, n);
   } else {
     T* v_comulative;
