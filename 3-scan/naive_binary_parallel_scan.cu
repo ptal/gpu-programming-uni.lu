@@ -63,7 +63,7 @@ void scan( std::vector<T>& v ) {
 template<typename T>
 __forceinline__ __device__ void update_sums( T* const v, size_t const n, size_t const p ) {
   size_t const idx = blockIdx.x * blockDim.x + threadIdx.x;
-  T const v_next = v[idx];
+  T v_next = v[idx];
   if ( threadIdx.x >= p && idx < n ) {
     v_next += v[idx - p];
   }
