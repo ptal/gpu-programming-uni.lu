@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 20,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "default-config",
+      "binaryDir": "${sourceDir}/build/Release",
+      "generator": "Unix Makefiles",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": { "type": "BOOL", "value": true },
+        "CMAKE_BUILD_TYPE": { "type": "STRING", "value": "Release" }
+      }
+    },
+    {
+      "name": "debug-config",
+      "binaryDir": "${sourceDir}/build/Debug",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": { "type": "BOOL", "value": true },
+        "CMAKE_BUILD_TYPE": { "type": "STRING", "value": "Debug" }
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default-build",
+      "configurePreset": "default-config"
+    },
+    {
+      "name": "debug-build",
+      "configurePreset": "debug-config"
+    }
+  ]
+}

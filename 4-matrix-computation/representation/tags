@@ -1,0 +1,303 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/gkaf/Documents/repositories/Teaching/numerical-methods/tutorial/example/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+0	CMakePresets.json	/^    {$/;"	o	array:buildPresets
+0	CMakePresets.json	/^    {$/;"	o	array:configurePresets
+ARCHITECTURE_ID	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#   define ARCHITECTURE_ID /;"	d	file:
+ARCHITECTURE_ID	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define ARCHITECTURE_ID /;"	d	file:
+ARCHITECTURE_ID	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define ARCHITECTURE_ID$/;"	d	file:
+ARCHITECTURE_ID	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#   define ARCHITECTURE_ID /;"	d	file:
+ARCHITECTURE_ID	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define ARCHITECTURE_ID /;"	d	file:
+ARCHITECTURE_ID	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define ARCHITECTURE_ID$/;"	d	file:
+AVX512ALIGN	src/utils.h	/^#define AVX512ALIGN /;"	d
+BLAS usage examples	README.md	/^# BLAS usage examples$/;"	c
+BUILD_SHARED_LIBS	CMakePresets.json	/^        "BUILD_SHARED_LIBS": { "type": "BOOL", "value": true },$/;"	o	object:configurePresets.0.cacheVariables
+CMAKE_AR	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_AR "\/usr\/bin\/ar")$/;"	v
+CMAKE_AR	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_AR "\/usr\/bin\/ar")$/;"	v
+CMAKE_ARCHIVE_OUTPUT_DIRECTORY	cmake/utilities.cmake	/^  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}\/${CMAKE_INSTALL_LIBDIR}" PARENT_SCOPE/;"	v
+CMAKE_BUILD_TYPE	CMakePresets.json	/^        "CMAKE_BUILD_TYPE": { "type": "STRING", "value": "Release" }$/;"	o	object:configurePresets.0.cacheVariables
+CMAKE_BUILD_TYPE	cmake/utilities.cmake	/^    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Set build type" FORCE)$/;"	v
+CMAKE_C11_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C11_COMPILE_FEATURES "c_std_11;c_static_assert")$/;"	v
+CMAKE_C17_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C17_COMPILE_FEATURES "c_std_17")$/;"	v
+CMAKE_C23_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C23_COMPILE_FEATURES "c_std_23")$/;"	v
+CMAKE_C90_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C90_COMPILE_FEATURES "c_std_90;c_function_prototypes")$/;"	v
+CMAKE_C99_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C99_COMPILE_FEATURES "c_std_99;c_restrict;c_variadic_macros")$/;"	v
+CMAKE_CL_SHOWINCLUDES_PREFIX	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^  set(CMAKE_CL_SHOWINCLUDES_PREFIX "${CMAKE_C_CL_SHOWINCLUDES_PREFIX}")$/;"	v
+CMAKE_CL_SHOWINCLUDES_PREFIX	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^  set(CMAKE_CL_SHOWINCLUDES_PREFIX "${CMAKE_CXX_CL_SHOWINCLUDES_PREFIX}")$/;"	v
+CMAKE_COMPILER_IS_GNUCC	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_COMPILER_IS_GNUCC 1)$/;"	v
+CMAKE_COMPILER_IS_GNUCXX	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_COMPILER_IS_GNUCXX 1)$/;"	v
+CMAKE_CROSSCOMPILING	build/Release/CMakeFiles/3.25.1/CMakeSystem.cmake	/^set(CMAKE_CROSSCOMPILING "FALSE")$/;"	v
+CMAKE_CROSSCOMPILING	build/Release/cmake_install.cmake	/^  set(CMAKE_CROSSCOMPILING "FALSE")$/;"	v
+CMAKE_CROSSCOMPILING	build/Release/src/cmake_install.cmake	/^  set(CMAKE_CROSSCOMPILING "FALSE")$/;"	v
+CMAKE_CXX11_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX11_COMPILE_FEATURES "cxx_std_11;cxx_alias_templates;cxx_alignas;cxx_alignof;cxx_att/;"	v
+CMAKE_CXX14_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX14_COMPILE_FEATURES "cxx_std_14;cxx_aggregate_default_initializers;cxx_attribute_de/;"	v
+CMAKE_CXX17_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX17_COMPILE_FEATURES "cxx_std_17")$/;"	v
+CMAKE_CXX20_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX20_COMPILE_FEATURES "cxx_std_20")$/;"	v
+CMAKE_CXX23_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX23_COMPILE_FEATURES "cxx_std_23")$/;"	v
+CMAKE_CXX98_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX98_COMPILE_FEATURES "cxx_std_98;cxx_template_template_parameters")$/;"	v
+CMAKE_CXX_ABI_COMPILED	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_ABI_COMPILED TRUE)$/;"	v
+CMAKE_CXX_BYTE_ORDER	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_BYTE_ORDER "LITTLE_ENDIAN")$/;"	v
+CMAKE_CXX_CL_SHOWINCLUDES_PREFIX	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_CL_SHOWINCLUDES_PREFIX "")$/;"	v
+CMAKE_CXX_COMPILER	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER "\/usr\/bin\/c++")$/;"	v
+CMAKE_CXX_COMPILER_ABI	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_ABI "ELF")$/;"	v
+CMAKE_CXX_COMPILER_AR	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_AR "\/usr\/bin\/gcc-ar-12")$/;"	v
+CMAKE_CXX_COMPILER_ARG1	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_ARG1 "")$/;"	v
+CMAKE_CXX_COMPILER_ENV_VAR	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_ENV_VAR "CXX")$/;"	v
+CMAKE_CXX_COMPILER_FRONTEND_VARIANT	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_FRONTEND_VARIANT "")$/;"	v
+CMAKE_CXX_COMPILER_ID	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_ID "GNU")$/;"	v
+CMAKE_CXX_COMPILER_ID_RUN	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_ID_RUN 1)$/;"	v
+CMAKE_CXX_COMPILER_LOADED	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_LOADED 1)$/;"	v
+CMAKE_CXX_COMPILER_RANLIB	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_RANLIB "\/usr\/bin\/gcc-ranlib-12")$/;"	v
+CMAKE_CXX_COMPILER_VERSION	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_VERSION "12.2.0")$/;"	v
+CMAKE_CXX_COMPILER_VERSION_INTERNAL	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_VERSION_INTERNAL "")$/;"	v
+CMAKE_CXX_COMPILER_WORKS	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_WORKS TRUE)$/;"	v
+CMAKE_CXX_COMPILER_WRAPPER	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILER_WRAPPER "")$/;"	v
+CMAKE_CXX_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_COMPILE_FEATURES "cxx_std_98;cxx_template_template_parameters;cxx_std_11;cxx_alias/;"	v
+CMAKE_CXX_EXTENSIONS_COMPUTED_DEFAULT	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_EXTENSIONS_COMPUTED_DEFAULT "ON")$/;"	v
+CMAKE_CXX_IGNORE_EXTENSIONS	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_IGNORE_EXTENSIONS inl;h;hpp;HPP;H;o;O;obj;OBJ;def;DEF;rc;RC)$/;"	v
+CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "\/usr\/include\/c++\/12;\/usr\/include\/x86_64-linux/;"	v
+CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "\/usr\/lib\/gcc\/x86_64-linux-gnu\/12;\/usr\/lib\/x86_6/;"	v
+CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")$/;"	v
+CMAKE_CXX_IMPLICIT_LINK_LIBRARIES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "stdc++;m;gcc_s;gcc;c;gcc_s;gcc")$/;"	v
+CMAKE_CXX_LIBRARY_ARCHITECTURE	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_LIBRARY_ARCHITECTURE "x86_64-linux-gnu")$/;"	v
+CMAKE_CXX_LINKER_PREFERENCE	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_LINKER_PREFERENCE 30)$/;"	v
+CMAKE_CXX_LINKER_PREFERENCE_PROPAGATES	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_LINKER_PREFERENCE_PROPAGATES 1)$/;"	v
+CMAKE_CXX_PLATFORM_ID	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_PLATFORM_ID "Linux")$/;"	v
+CMAKE_CXX_SIMULATE_ID	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_SIMULATE_ID "")$/;"	v
+CMAKE_CXX_SIMULATE_VERSION	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_SIMULATE_VERSION "")$/;"	v
+CMAKE_CXX_SIZEOF_DATA_PTR	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_SIZEOF_DATA_PTR "8")$/;"	v
+CMAKE_CXX_SOURCE_FILE_EXTENSIONS	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_SOURCE_FILE_EXTENSIONS C;M;c++;cc;cpp;cxx;m;mm;mpp;CPP;ixx;cppm)$/;"	v
+CMAKE_CXX_STANDARD_COMPUTED_DEFAULT	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_CXX_STANDARD_COMPUTED_DEFAULT "17")$/;"	v
+CMAKE_C_ABI_COMPILED	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_ABI_COMPILED TRUE)$/;"	v
+CMAKE_C_BYTE_ORDER	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_BYTE_ORDER "LITTLE_ENDIAN")$/;"	v
+CMAKE_C_CL_SHOWINCLUDES_PREFIX	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_CL_SHOWINCLUDES_PREFIX "")$/;"	v
+CMAKE_C_COMPILER	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER "\/usr\/bin\/cc")$/;"	v
+CMAKE_C_COMPILER_ABI	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_ABI "ELF")$/;"	v
+CMAKE_C_COMPILER_AR	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_AR "\/usr\/bin\/gcc-ar-12")$/;"	v
+CMAKE_C_COMPILER_ARG1	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_ARG1 "")$/;"	v
+CMAKE_C_COMPILER_ENV_VAR	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_ENV_VAR "CC")$/;"	v
+CMAKE_C_COMPILER_FRONTEND_VARIANT	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_FRONTEND_VARIANT "")$/;"	v
+CMAKE_C_COMPILER_ID	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_ID "GNU")$/;"	v
+CMAKE_C_COMPILER_ID_RUN	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_ID_RUN 1)$/;"	v
+CMAKE_C_COMPILER_LOADED	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_LOADED 1)$/;"	v
+CMAKE_C_COMPILER_RANLIB	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_RANLIB "\/usr\/bin\/gcc-ranlib-12")$/;"	v
+CMAKE_C_COMPILER_VERSION	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_VERSION "12.2.0")$/;"	v
+CMAKE_C_COMPILER_VERSION_INTERNAL	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_VERSION_INTERNAL "")$/;"	v
+CMAKE_C_COMPILER_WORKS	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_WORKS TRUE)$/;"	v
+CMAKE_C_COMPILER_WRAPPER	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILER_WRAPPER "")$/;"	v
+CMAKE_C_COMPILE_FEATURES	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_COMPILE_FEATURES "c_std_90;c_function_prototypes;c_std_99;c_restrict;c_variadic_macr/;"	v
+CMAKE_C_EXTENSIONS_COMPUTED_DEFAULT	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_EXTENSIONS_COMPUTED_DEFAULT "ON")$/;"	v
+CMAKE_C_FLAGS_DEBUG	cmake/utilities.cmake	/^    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")$/;"	v
+CMAKE_C_IGNORE_EXTENSIONS	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_IGNORE_EXTENSIONS h;H;o;O;obj;OBJ;def;DEF;rc;RC)$/;"	v
+CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES "\/usr\/lib\/gcc\/x86_64-linux-gnu\/12\/include;\/usr\//;"	v
+CMAKE_C_IMPLICIT_LINK_DIRECTORIES	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "\/usr\/lib\/gcc\/x86_64-linux-gnu\/12;\/usr\/lib\/x86_64-/;"	v
+CMAKE_C_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")$/;"	v
+CMAKE_C_IMPLICIT_LINK_LIBRARIES	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "gcc;gcc_s;c;gcc;gcc_s")$/;"	v
+CMAKE_C_LIBRARY_ARCHITECTURE	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_LIBRARY_ARCHITECTURE "x86_64-linux-gnu")$/;"	v
+CMAKE_C_LINKER_PREFERENCE	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_LINKER_PREFERENCE 10)$/;"	v
+CMAKE_C_PLATFORM_ID	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_PLATFORM_ID "Linux")$/;"	v
+CMAKE_C_SIMULATE_ID	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_SIMULATE_ID "")$/;"	v
+CMAKE_C_SIMULATE_VERSION	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_SIMULATE_VERSION "")$/;"	v
+CMAKE_C_SIZEOF_DATA_PTR	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_SIZEOF_DATA_PTR "8")$/;"	v
+CMAKE_C_SOURCE_FILE_EXTENSIONS	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_SOURCE_FILE_EXTENSIONS c;m)$/;"	v
+CMAKE_C_STANDARD_COMPUTED_DEFAULT	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_C_STANDARD_COMPUTED_DEFAULT "17")$/;"	v
+CMAKE_HOST_SYSTEM	build/Release/CMakeFiles/3.25.1/CMakeSystem.cmake	/^set(CMAKE_HOST_SYSTEM "Linux-6.1.0-13-amd64")$/;"	v
+CMAKE_HOST_SYSTEM_NAME	build/Release/CMakeFiles/3.25.1/CMakeSystem.cmake	/^set(CMAKE_HOST_SYSTEM_NAME "Linux")$/;"	v
+CMAKE_HOST_SYSTEM_PROCESSOR	build/Release/CMakeFiles/3.25.1/CMakeSystem.cmake	/^set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")$/;"	v
+CMAKE_HOST_SYSTEM_VERSION	build/Release/CMakeFiles/3.25.1/CMakeSystem.cmake	/^set(CMAKE_HOST_SYSTEM_VERSION "6.1.0-13-amd64")$/;"	v
+CMAKE_INSTALL_COMPONENT	build/Release/cmake_install.cmake	/^    set(CMAKE_INSTALL_COMPONENT "${COMPONENT}")$/;"	v
+CMAKE_INSTALL_COMPONENT	build/Release/cmake_install.cmake	/^    set(CMAKE_INSTALL_COMPONENT)$/;"	v
+CMAKE_INSTALL_COMPONENT	build/Release/src/cmake_install.cmake	/^    set(CMAKE_INSTALL_COMPONENT "${COMPONENT}")$/;"	v
+CMAKE_INSTALL_COMPONENT	build/Release/src/cmake_install.cmake	/^    set(CMAKE_INSTALL_COMPONENT)$/;"	v
+CMAKE_INSTALL_CONFIG_NAME	build/Release/cmake_install.cmake	/^    set(CMAKE_INSTALL_CONFIG_NAME "Release")$/;"	v
+CMAKE_INSTALL_CONFIG_NAME	build/Release/src/cmake_install.cmake	/^    set(CMAKE_INSTALL_CONFIG_NAME "Release")$/;"	v
+CMAKE_INSTALL_MANIFEST	build/Release/cmake_install.cmake	/^  set(CMAKE_INSTALL_MANIFEST "install_manifest.txt")$/;"	v
+CMAKE_INSTALL_MANIFEST	build/Release/cmake_install.cmake	/^  set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")$/;"	v
+CMAKE_INSTALL_PREFIX	build/Release/cmake_install.cmake	/^  set(CMAKE_INSTALL_PREFIX "\/usr\/local")$/;"	v
+CMAKE_INSTALL_PREFIX	build/Release/src/cmake_install.cmake	/^  set(CMAKE_INSTALL_PREFIX "\/usr\/local")$/;"	v
+CMAKE_INSTALL_SO_NO_EXE	build/Release/cmake_install.cmake	/^  set(CMAKE_INSTALL_SO_NO_EXE "1")$/;"	v
+CMAKE_INSTALL_SO_NO_EXE	build/Release/src/cmake_install.cmake	/^  set(CMAKE_INSTALL_SO_NO_EXE "1")$/;"	v
+CMAKE_INTERNAL_PLATFORM_ABI	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^  set(CMAKE_INTERNAL_PLATFORM_ABI "${CMAKE_C_COMPILER_ABI}")$/;"	v
+CMAKE_INTERNAL_PLATFORM_ABI	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^  set(CMAKE_INTERNAL_PLATFORM_ABI "${CMAKE_CXX_COMPILER_ABI}")$/;"	v
+CMAKE_LIBRARY_ARCHITECTURE	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^  set(CMAKE_LIBRARY_ARCHITECTURE "x86_64-linux-gnu")$/;"	v
+CMAKE_LIBRARY_ARCHITECTURE	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^  set(CMAKE_LIBRARY_ARCHITECTURE "x86_64-linux-gnu")$/;"	v
+CMAKE_LIBRARY_OUTPUT_DIRECTORY	cmake/utilities.cmake	/^  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}\/${CMAKE_INSTALL_LIBDIR}" PARENT_SCOPE/;"	v
+CMAKE_LINKER	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_LINKER "\/usr\/bin\/ld")$/;"	v
+CMAKE_LINKER	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_LINKER "\/usr\/bin\/ld")$/;"	v
+CMAKE_MT	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_MT "")$/;"	v
+CMAKE_MT	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_MT "")$/;"	v
+CMAKE_OBJDUMP	build/Release/cmake_install.cmake	/^  set(CMAKE_OBJDUMP "\/usr\/bin\/objdump")$/;"	v
+CMAKE_OBJDUMP	build/Release/src/cmake_install.cmake	/^  set(CMAKE_OBJDUMP "\/usr\/bin\/objdump")$/;"	v
+CMAKE_RANLIB	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^set(CMAKE_RANLIB "\/usr\/bin\/ranlib")$/;"	v
+CMAKE_RANLIB	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^set(CMAKE_RANLIB "\/usr\/bin\/ranlib")$/;"	v
+CMAKE_RUNTIME_OUTPUT_DIRECTORY	cmake/utilities.cmake	/^  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}\/${CMAKE_INSTALL_BINDIR}" PARENT_SCOPE/;"	v
+CMAKE_SIZEOF_VOID_P	build/Release/CMakeFiles/3.25.1/CMakeCCompiler.cmake	/^  set(CMAKE_SIZEOF_VOID_P "${CMAKE_C_SIZEOF_DATA_PTR}")$/;"	v
+CMAKE_SIZEOF_VOID_P	build/Release/CMakeFiles/3.25.1/CMakeCXXCompiler.cmake	/^  set(CMAKE_SIZEOF_VOID_P "${CMAKE_CXX_SIZEOF_DATA_PTR}")$/;"	v
+CMAKE_SYSTEM	build/Release/CMakeFiles/3.25.1/CMakeSystem.cmake	/^set(CMAKE_SYSTEM "Linux-6.1.0-13-amd64")$/;"	v
+CMAKE_SYSTEM_LOADED	build/Release/CMakeFiles/3.25.1/CMakeSystem.cmake	/^set(CMAKE_SYSTEM_LOADED 1)$/;"	v
+CMAKE_SYSTEM_NAME	build/Release/CMakeFiles/3.25.1/CMakeSystem.cmake	/^set(CMAKE_SYSTEM_NAME "Linux")$/;"	v
+CMAKE_SYSTEM_PROCESSOR	build/Release/CMakeFiles/3.25.1/CMakeSystem.cmake	/^set(CMAKE_SYSTEM_PROCESSOR "x86_64")$/;"	v
+CMAKE_SYSTEM_VERSION	build/Release/CMakeFiles/3.25.1/CMakeSystem.cmake	/^set(CMAKE_SYSTEM_VERSION "6.1.0-13-amd64")$/;"	v
+COMPILER_ID	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define COMPILER_ID /;"	d	file:
+COMPILER_ID	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define COMPILER_ID /;"	d	file:
+COMPILER_VERSION	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#   define COMPILER_VERSION /;"	d	file:
+COMPILER_VERSION	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#   define COMPILER_VERSION /;"	d	file:
+COMPILER_VERSION_INTERNAL	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#   define COMPILER_VERSION_INTERNAL /;"	d	file:
+COMPILER_VERSION_INTERNAL	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define COMPILER_VERSION_INTERNAL /;"	d	file:
+COMPILER_VERSION_INTERNAL	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define COMPILER_VERSION_INTERNAL /;"	d	file:
+COMPILER_VERSION_INTERNAL	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#   define COMPILER_VERSION_INTERNAL /;"	d	file:
+COMPILER_VERSION_INTERNAL	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define COMPILER_VERSION_INTERNAL /;"	d	file:
+COMPILER_VERSION_INTERNAL	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define COMPILER_VERSION_INTERNAL /;"	d	file:
+COMPILER_VERSION_INTERNAL_STR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define COMPILER_VERSION_INTERNAL_STR /;"	d	file:
+COMPILER_VERSION_INTERNAL_STR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define COMPILER_VERSION_INTERNAL_STR /;"	d	file:
+COMPILER_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^  # define COMPILER_VERSION_MAJOR /;"	d	file:
+COMPILER_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#   define COMPILER_VERSION_MAJOR /;"	d	file:
+COMPILER_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define COMPILER_VERSION_MAJOR /;"	d	file:
+COMPILER_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define COMPILER_VERSION_MAJOR /;"	d	file:
+COMPILER_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^  # define COMPILER_VERSION_MAJOR /;"	d	file:
+COMPILER_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#   define COMPILER_VERSION_MAJOR /;"	d	file:
+COMPILER_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define COMPILER_VERSION_MAJOR /;"	d	file:
+COMPILER_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define COMPILER_VERSION_MAJOR /;"	d	file:
+COMPILER_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^  # define COMPILER_VERSION_MINOR /;"	d	file:
+COMPILER_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#   define COMPILER_VERSION_MINOR /;"	d	file:
+COMPILER_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define COMPILER_VERSION_MINOR /;"	d	file:
+COMPILER_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define COMPILER_VERSION_MINOR /;"	d	file:
+COMPILER_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^  # define COMPILER_VERSION_MINOR /;"	d	file:
+COMPILER_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#   define COMPILER_VERSION_MINOR /;"	d	file:
+COMPILER_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define COMPILER_VERSION_MINOR /;"	d	file:
+COMPILER_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define COMPILER_VERSION_MINOR /;"	d	file:
+COMPILER_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^  # define COMPILER_VERSION_PATCH /;"	d	file:
+COMPILER_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#   define COMPILER_VERSION_PATCH /;"	d	file:
+COMPILER_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define COMPILER_VERSION_PATCH /;"	d	file:
+COMPILER_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define COMPILER_VERSION_PATCH /;"	d	file:
+COMPILER_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^  # define COMPILER_VERSION_PATCH /;"	d	file:
+COMPILER_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#   define COMPILER_VERSION_PATCH /;"	d	file:
+COMPILER_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define COMPILER_VERSION_PATCH /;"	d	file:
+COMPILER_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define COMPILER_VERSION_PATCH /;"	d	file:
+COMPILER_VERSION_TWEAK	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define COMPILER_VERSION_TWEAK /;"	d	file:
+COMPILER_VERSION_TWEAK	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define COMPILER_VERSION_TWEAK /;"	d	file:
+COMPILER_VERSION_TWEAK	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define COMPILER_VERSION_TWEAK /;"	d	file:
+COMPILER_VERSION_TWEAK	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define COMPILER_VERSION_TWEAK /;"	d	file:
+CXX_STD	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#      define CXX_STD /;"	d	file:
+CXX_STD	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#    define CXX_STD /;"	d	file:
+CXX_STD	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define CXX_STD /;"	d	file:
+C_VERSION	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define C_VERSION /;"	d	file:
+C_VERSION	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define C_VERSION$/;"	d	file:
+C_VERSION	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define C_VERSION /;"	d	file:
+Collection of matrix examples	README.md	/^## Collection of matrix examples$/;"	s	chapter:BLAS usage examples
+DEC	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#define DEC(/;"	d	file:
+DEC	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#define DEC(/;"	d	file:
+EXAMPLE_EXECUTE_SRC_FILES	src/CMakeLists.txt	/^set(EXAMPLE_EXECUTE_SRC_FILES$/;"	v
+HEX	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#define HEX(/;"	d	file:
+HEX	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#define HEX(/;"	d	file:
+ID_VOID_MAIN	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define ID_VOID_MAIN$/;"	d	file:
+INCLUDE_FILES	cmake/utilities.cmake	/^  set(INCLUDE_FILES "include")$/;"	v
+INSTALL_BINDIR	cmake/utilities.cmake	/^  set(INSTALL_BINDIR "${CMAKE_INSTALL_PREFIX}\/${CMAKE_BUILD_TYPE}\/bin" PARENT_SCOPE)$/;"	v
+PLATFORM_ID	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define PLATFORM_ID /;"	d	file:
+PLATFORM_ID	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define PLATFORM_ID$/;"	d	file:
+PLATFORM_ID	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define PLATFORM_ID /;"	d	file:
+PLATFORM_ID	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define PLATFORM_ID$/;"	d	file:
+PLATFORM_ID	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define PLATFORM_ID /;"	d	file:
+PLATFORM_ID	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define PLATFORM_ID$/;"	d	file:
+PLATFORM_ID	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define PLATFORM_ID /;"	d	file:
+PLATFORM_ID	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define PLATFORM_ID$/;"	d	file:
+READ_AND_EXECUTE_SRC_FILES	src/CMakeLists.txt	/^set(READ_AND_EXECUTE_SRC_FILES$/;"	v
+READ_MATRIX_SRC_FILES	src/CMakeLists.txt	/^set(READ_MATRIX_SRC_FILES "${CMAKE_SOURCE_DIR}\/${SRC_FILES}\/read_matrix.c")$/;"	v
+SIMULATE_ID	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define SIMULATE_ID /;"	d	file:
+SIMULATE_ID	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define SIMULATE_ID /;"	d	file:
+SIMULATE_ID	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define SIMULATE_ID /;"	d	file:
+SIMULATE_ID	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define SIMULATE_ID /;"	d	file:
+SIMULATE_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define SIMULATE_VERSION_MAJOR /;"	d	file:
+SIMULATE_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define SIMULATE_VERSION_MAJOR /;"	d	file:
+SIMULATE_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define SIMULATE_VERSION_MAJOR /;"	d	file:
+SIMULATE_VERSION_MAJOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define SIMULATE_VERSION_MAJOR /;"	d	file:
+SIMULATE_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define SIMULATE_VERSION_MINOR /;"	d	file:
+SIMULATE_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define SIMULATE_VERSION_MINOR /;"	d	file:
+SIMULATE_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define SIMULATE_VERSION_MINOR /;"	d	file:
+SIMULATE_VERSION_MINOR	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define SIMULATE_VERSION_MINOR /;"	d	file:
+SIMULATE_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#   define SIMULATE_VERSION_PATCH /;"	d	file:
+SIMULATE_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define SIMULATE_VERSION_PATCH /;"	d	file:
+SIMULATE_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define SIMULATE_VERSION_PATCH /;"	d	file:
+SIMULATE_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#   define SIMULATE_VERSION_PATCH /;"	d	file:
+SIMULATE_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define SIMULATE_VERSION_PATCH /;"	d	file:
+SIMULATE_VERSION_PATCH	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define SIMULATE_VERSION_PATCH /;"	d	file:
+SRC_FILES	cmake/utilities.cmake	/^  set(SRC_FILES "src")$/;"	v
+STRINGIFY	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#define STRINGIFY(/;"	d	file:
+STRINGIFY	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#define STRINGIFY(/;"	d	file:
+STRINGIFY_HELPER	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#define STRINGIFY_HELPER(/;"	d	file:
+STRINGIFY_HELPER	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#define STRINGIFY_HELPER(/;"	d	file:
+__has_include	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^#  define __has_include(/;"	d	file:
+__has_include	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define __has_include(/;"	d	file:
+binaryDir	CMakePresets.json	/^      "binaryDir": "${sourceDir}\/build\/Release",$/;"	s	object:configurePresets.0
+blas	src/CMakeLists.txt	/^add_library( blas SHARED IMPORTED )$/;"	t
+buildPresets	CMakePresets.json	/^  "buildPresets": [$/;"	a
+cacheVariables	CMakePresets.json	/^      "cacheVariables": {$/;"	o	object:configurePresets.0
+cblas	src/CMakeLists.txt	/^add_library( cblas SHARED IMPORTED )$/;"	t
+cmakeMinimumRequired	CMakePresets.json	/^  "cmakeMinimumRequired": {$/;"	o
+configurePreset	CMakePresets.json	/^      "configurePreset": "default-config"$/;"	s	object:buildPresets.0
+configurePresets	CMakePresets.json	/^  "configurePresets": [$/;"	a
+const	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define const$/;"	d	file:
+copy_coo_to_dns	src/utils.c	/^void copy_coo_to_dns( int const nz, int const ld, int const ncols,$/;"	f	typeref:typename:void
+example_execute	src/CMakeLists.txt	/^add_executable(example_execute "${EXAMPLE_EXECUTE_SRC_FILES}")$/;"	t
+generator	CMakePresets.json	/^      "generator": "Ninja",$/;"	s	object:configurePresets.0
+get_ld	src/utils.c	/^int get_ld( int const entries, int const type_cache_alignment )$/;"	f	typeref:typename:int
+info_arch	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";$/;"	v	typeref:typename:char const *
+info_arch	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";$/;"	v	typeref:typename:char const *
+info_compiler	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const* info_compiler = "INFO" ":" "compiler[" COMPILER_ID "]";$/;"	v	typeref:typename:char const *
+info_compiler	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_compiler = "INFO" ":" "compiler[" COMPILER_ID "]";$/;"	v	typeref:typename:char const *
+info_cray	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const *info_cray = "INFO" ":" "compiler_wrapper[CrayPrgEnv]";$/;"	v	typeref:typename:char const *
+info_cray	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const *info_cray = "INFO" ":" "compiler_wrapper[CrayPrgEnv]";$/;"	v	typeref:typename:char const *
+info_language_extensions_default	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^const char* info_language_extensions_default = "INFO" ":" "extensions_default["$/;"	v	typeref:typename:const char *
+info_language_extensions_default	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^const char* info_language_extensions_default = "INFO" ":" "extensions_default["$/;"	v	typeref:typename:const char *
+info_language_standard_default	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^const char* info_language_standard_default =$/;"	v	typeref:typename:const char *
+info_language_standard_default	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^const char* info_language_standard_default = "INFO" ":" "standard_default["$/;"	v	typeref:typename:const char *
+info_platform	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const* info_platform = "INFO" ":" "platform[" PLATFORM_ID "]";$/;"	v	typeref:typename:char const *
+info_platform	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_platform = "INFO" ":" "platform[" PLATFORM_ID "]";$/;"	v	typeref:typename:char const *
+info_simulate	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const* info_simulate = "INFO" ":" "simulate[" SIMULATE_ID "]";$/;"	v	typeref:typename:char const *
+info_simulate	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_simulate = "INFO" ":" "simulate[" SIMULATE_ID "]";$/;"	v	typeref:typename:char const *
+info_simulate_version	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const info_simulate_version[] = {$/;"	v	typeref:typename:char const[]
+info_simulate_version	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_simulate_version[] = {$/;"	v	typeref:typename:char const[]
+info_version	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const info_version[] = {$/;"	v	typeref:typename:char const[]
+info_version	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const* info_version = "INFO" ":" "compiler_version[" COMPILER_VERSION "]";$/;"	v	typeref:typename:char const *
+info_version	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_version[] = {$/;"	v	typeref:typename:char const[]
+info_version	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_version = "INFO" ":" "compiler_version[" COMPILER_VERSION "]";$/;"	v	typeref:typename:char const *
+info_version_internal	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const info_version_internal[] = {$/;"	v	typeref:typename:char const[]
+info_version_internal	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const* info_version_internal = "INFO" ":" "compiler_version_internal[" COMPILER_VERSION_INT/;"	v	typeref:typename:char const *
+info_version_internal	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_version_internal[] = {$/;"	v	typeref:typename:char const[]
+info_version_internal	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_version_internal = "INFO" ":" "compiler_version_internal[" COMPILER_VERSION_INT/;"	v	typeref:typename:char const *
+main	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^int main(argc, argv) int argc; char *argv[];$/;"	f
+main	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^void main() {}$/;"	f	typeref:typename:void
+main	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^int main(int argc, char* argv[])$/;"	f	typeref:typename:int
+main	src/example_execute.c	/^int main( int argc, char** argv )$/;"	f	typeref:typename:int
+main	src/read_and_execute.c	/^int main( int argc, char** argv )$/;"	f	typeref:typename:int
+main	src/read_matrix.c	/^int main( int argc, char** argv )$/;"	f	typeref:typename:int
+major	CMakePresets.json	/^    "major": 3,$/;"	n	object:cmakeMinimumRequired
+market-matrix-exchange-format	CMakeLists.txt	/^project(market-matrix-exchange-format VERSION 1.0)$/;"	p
+matrix-market	src/CMakeLists.txt	/^add_library( matrix-market SHARED IMPORTED )$/;"	t
+minor	CMakePresets.json	/^    "minor": 20,$/;"	n	object:cmakeMinimumRequired
+name	CMakePresets.json	/^      "name": "default-build",$/;"	s	object:buildPresets.0
+name	CMakePresets.json	/^      "name": "default-config",$/;"	s	object:configurePresets.0
+patch	CMakePresets.json	/^    "patch": 0$/;"	n	object:cmakeMinimumRequired
+print_matrix	src/utils.c	/^void print_matrix( FILE* const f,$/;"	f	typeref:typename:void
+print_vector	src/utils.c	/^void print_vector( FILE* const f,$/;"	f	typeref:typename:void
+qnxnto	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v	typeref:typename:char const *
+qnxnto	build/Release/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v	typeref:typename:char const *
+read_and_execute	src/CMakeLists.txt	/^add_executable(read_and_execute "${READ_AND_EXECUTE_SRC_FILES}")$/;"	t
+read_matrix	src/CMakeLists.txt	/^add_executable(read_matrix "${READ_MATRIX_SRC_FILES}")$/;"	t
+set_build_type_parameters	cmake/utilities.cmake	/^macro(set_build_type_parameters)$/;"	m
+set_output_dir_structure	cmake/utilities.cmake	/^function(set_output_dir_structure)$/;"	f
+set_output_dir_structure_single_config	cmake/utilities.cmake	/^macro(set_output_dir_structure_single_config)$/;"	m
+type	CMakePresets.json	/^        "BUILD_SHARED_LIBS": { "type": "BOOL", "value": true },$/;"	s	object:configurePresets.0.cacheVariables.BUILD_SHARED_LIBS
+type	CMakePresets.json	/^        "CMAKE_BUILD_TYPE": { "type": "STRING", "value": "Release" }$/;"	s	object:configurePresets.0.cacheVariables.CMAKE_BUILD_TYPE
+value	CMakePresets.json	/^        "BUILD_SHARED_LIBS": { "type": "BOOL", "value": true },$/;"	b	object:configurePresets.0.cacheVariables.BUILD_SHARED_LIBS
+value	CMakePresets.json	/^        "CMAKE_BUILD_TYPE": { "type": "STRING", "value": "Release" }$/;"	s	object:configurePresets.0.cacheVariables.CMAKE_BUILD_TYPE
+version	CMakePresets.json	/^  "version": 2,$/;"	n
+volatile	build/Release/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.c	/^# define volatile$/;"	d	file:
