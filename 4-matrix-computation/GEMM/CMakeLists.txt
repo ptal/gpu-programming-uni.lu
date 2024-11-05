@@ -18,14 +18,7 @@ endif()
 
 set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CUDA_FLAGS "-Wall -Wextra")
-
-add_executable(gemm_naive src/gpu_GEMM_naive.cu)
-
-set_property(TARGET gemm_naive PROPERTY CUDA_ARCHITECTURES 70)
-# If you have several files .cpp, allowing separable compilation is necessary.
-set_property(TARGET gemm_naive APPEND PROPERTY CUDA_SEPARABLE_COMPILATION ON)
-
-target_compile_options(gemm_naive PRIVATE
+set(compile_options
   $<$<COMPILE_LANGUAGE:CUDA>:
     $<$<CONFIG:Debug>:
       -G --verbose
@@ -38,3 +31,11 @@ target_compile_options(gemm_naive PRIVATE
     -O3
   >
 )
+
+add_executable(gpu_gemm src/gpu_GEMM.cu)
+
+set_property(TARGET gpu_gemm PROPERTY CUDA_ARCHITECTURES 70)
+# If you have several files .cpp, allowing separable compilation is necessary.
+set_property(TARGET gpu_gemm APPEND PROPERTY CUDA_SEPARABLE_COMPILATION ON)
+
+target_compile_options(gpu_gemm PRIVATE ${compile_options})
