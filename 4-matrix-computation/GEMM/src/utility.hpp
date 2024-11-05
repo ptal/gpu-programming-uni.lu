@@ -3,6 +3,10 @@
 #include <cstdlib>
 #include <cstdio>
 #include <chrono>
+#include <random>
+#include <limits>
+#include <iterator>
+#include <algorithm>
 
 #pragma once
 
@@ -32,4 +36,31 @@ double benchmark_averaged_ms(F&& f, unsigned long long int n) {
 
   std::chrono::milliseconds Dt = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
   return static_cast<double>( Dt.count() /* This will be a unint64_t */ ) / static_cast<double>(n);
+}
+
+template<typename T>
+void append_random( T& v, size_t n, std::seed_seq& s ) {
+  std::mt19937 mersenne_generator{s};
+  std::uniform_int_distribution<int> distribution{0, std::numeric_limits<int>::max()};
+  std::generate_n(
+    std::back_inserter(v),
+    n,
+    [&distribution, &mersenne_generator]() {
+    // See: https://en.wikipedia.org/wiki/Inverse_transform_sampling
+      return static_cast<T>(distribution(mersenne_generator));
+    }
+  );
+}
+
+template<typename T>
+void fill_random( T& v, size_t n, std::seed_seq& s ) {
+  std::mt19937 mersenne_generator{s};
+  std::uniform_int_distribution<int> distribution{0, std::numeric_limits<int>::max()};
+  std::generate_n(
+    v,
+    n,
+    [&distribution, &mersenne_generator]() {
+      return static_cast<T>(distribution(mersenne_generator));
+    }
+  );
 }

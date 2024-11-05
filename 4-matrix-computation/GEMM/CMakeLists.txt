@@ -16,6 +16,19 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
+include(CMakePrintHelpers)
+
+find_package(BLAS REQUIRED)
+set(BLAS_ROOT_DIRS "")
+foreach(lib ${BLAS_LIBRARIES})
+  cmake_path(GET lib PARENT_PATH lib_dir)
+  cmake_path(GET lib_dir PARENT_PATH base_dir)
+  list(APPEND BLAS_ROOT_DIRS "${base_dir}/include")
+  list(APPEND BLAS_ROOT_DIRS "${base_dir}/include/ilp64")
+  list(APPEND BLAS_ROOT_DIRS "${base_dir}/include/lp64")
+endforeach()
+find_path(BLAS_INCLUDE_DIRS cblas.h ${BLAS_ROOT_DIRS})
+
 set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CUDA_FLAGS "-Wall -Wextra")
 set(compile_options
@@ -39,3 +52,5 @@ set_property(TARGET gpu_gemm PROPERTY CUDA_ARCHITECTURES 70)
 set_property(TARGET gpu_gemm APPEND PROPERTY CUDA_SEPARABLE_COMPILATION ON)
 
 target_compile_options(gpu_gemm PRIVATE ${compile_options})
+target_link_libraries(gpu_gemm PRIVATE BLAS::BLAS)
+target_include_directories(gpu_gemm PRIVATE ${BLAS_INCLUDE_DIRS})
