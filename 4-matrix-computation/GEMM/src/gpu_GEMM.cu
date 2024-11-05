@@ -5,22 +5,23 @@
 #include "datatypes.hpp"
 
 template<typename T>
-void gpu_GEMM_naive(
-  DenseMatrix<T> const& mtxA, DenseMatrix<T> const& mtxB, DenseMatrix<T>& mtxC,
-  size_t const m_block_size, size_t const n_block_size
-);
-
-template<typename T>
-__global__ void gpu_GEMM_naive(
+using gemm_fcn = void (*)(
   T* A, T* B, T* C,
   size_t const M, size_t const K, size_t const N,
   size_t const ldA, size_t const ldB, size_t const ldC
 );
 
 template<typename T>
-void gpu_GEMM_naive(
+void gpu_GEMM(
   DenseMatrix<T> const& mtxA, DenseMatrix<T> const& mtxB, DenseMatrix<T>& mtxC,
   size_t const m_block_size, size_t const n_block_size
+);
+
+template<typename T>
+void gpu_GEMM(
+  DenseMatrix<T> const& mtxA, DenseMatrix<T> const& mtxB, DenseMatrix<T>& mtxC,
+  size_t const m_block_size, size_t const n_block_size,
+  gemm_fcn<T> gemm
 ) {
   T* A;
   T* B;
@@ -41,7 +42,7 @@ void gpu_GEMM_naive(
   try_CUDA( cudaMemcpy(A, mtxA.data, sizeof(T) * mtxA.nnz, cudaMemcpyHostToDevice) );
   try_CUDA( cudaMemcpy(B, mtxB.data, sizeof(T) * mtxB.nnz, cudaMemcpyHostToDevice) );
 
-  gpu_GEMM_naive<T><<<threadsPerBlock,blocksPerGrid>>>(
+  gemm<<<threadsPerBlock,blocksPerGrid>>>(
     A, B, C,
     mtxA.m, mtxA.n, mtxB.m,
     mtxA.ld, mtxB.ld, mtxC.ld
@@ -54,6 +55,13 @@ void gpu_GEMM_naive(
   try_CUDA( cudaFreeHost(B) );
   try_CUDA( cudaFreeHost(C) );
 }
+
+template<typename T>
+__global__ void gpu_GEMM_naive(
+  T* A, T* B, T* C,
+  size_t const M, size_t const K, size_t const N,
+  size_t const ldA, size_t const ldB, size_t const ldC
+);
 
 template<typename T>
 __global__ void gpu_GEMM_naive(
@@ -103,7 +111,7 @@ int main() {
   mtxC.n = 5;
   mtxC.ld = 5;
 
-  gpu_GEMM_naive(mtxA, mtxB, mtxC, 2, 2);
+  gpu_GEMM(mtxA, mtxB, mtxC, 2, 2, gpu_GEMM_naive);
 
   std::cout << "Matrix A:" << "\n";
   mtxA.display(std::cout);
