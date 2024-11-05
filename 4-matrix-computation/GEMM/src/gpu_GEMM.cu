@@ -6,7 +6,7 @@
 
 template<typename T>
 using gemm_fcn = void (*)(
-  T* A, T* B, T* C,
+  T const* const A, T const* const B, T* const C,
   size_t const M, size_t const K, size_t const N,
   size_t const ldA, size_t const ldB, size_t const ldC
 );
@@ -58,14 +58,14 @@ void gpu_GEMM(
 
 template<typename T>
 __global__ void gpu_GEMM_naive(
-  T* A, T* B, T* C,
+  T const* const A, T const* const B, T* const C,
   size_t const M, size_t const K, size_t const N,
   size_t const ldA, size_t const ldB, size_t const ldC
 );
 
 template<typename T>
 __global__ void gpu_GEMM_naive(
-  T* A, T* B, T* C,
+  T const* const A, T const* const B, T* const C,
   size_t const M, size_t const K, size_t const N,
   size_t const ldA, size_t const ldB, size_t const ldC
 ) {
