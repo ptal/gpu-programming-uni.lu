@@ -191,6 +191,9 @@ int find_repeats(int* device_input, int length, int* device_output) {
   // exclusive_scan function with them. However, your implementation
   // must ensure that the results of find_repeats are correct given
   // the actual array length.
+
+  exclusive_scan(device_input, N, device_output);
+  cudaDeviceSynchronize();
   int index = 0;
   for(int i = 0; i < length; i++) {
     if(device_input[i] == 1) {
