@@ -12,7 +12,7 @@
 
 #include "CycleTimer.h"
 
-#define THREADS_PER_BLOCK 256
+#define THREADS_PER_BLOCK 4
 
 
 // helper function to round an integer up to the next power of 2
@@ -98,6 +98,15 @@ void exclusive_scan(int* input, int N, int* result)
 // implementation of scan - it copies the input to the GPU
 // and times the invocation of the exclusive_scan() function
 // above. Students should not modify it.
+
+void printArray(int* array, size_t N) {
+  std::cout << "The resultant Array is: ";
+  for(int i = 0; i < N; i++) {
+    std::cout << array[i] << " ";
+  }
+  std::cout:: std::endl;
+}
+
 double cudaScan(int* inarray, int* end, int* resultarray)
 {
   int* device_result;
@@ -127,8 +136,10 @@ double cudaScan(int* inarray, int* end, int* resultarray)
   cudaMemcpy(device_result, inarray, (end - inarray) * sizeof(int), cudaMemcpyHostToDevice);
 
   double startTime = CycleTimer::currentSeconds();
-
+  printArray(device_input, end - inarray);
+  printArray(device_result, end - inarray);
   exclusive_scan(device_input, N, device_result);
+  printArray(device_result, end - inarray);
 
   // Wait for completion
   cudaDeviceSynchronize();
@@ -191,6 +202,11 @@ int find_repeats(int* device_input, int length, int* device_output) {
   // exclusive_scan function with them. However, your implementation
   // must ensure that the results of find_repeats are correct given
   // the actual array length.
+
+  // cudaMalloc((void **)&device_result, sizeof(int) * N);
+  // cudaMalloc((void **)&device_input, sizeof(int) * N);
+
+  int* 
 
   exclusive_scan(device_input, length, device_output);
   cudaDeviceSynchronize();
