@@ -45,7 +45,7 @@ static inline int nextPow2(int n) {
 
 __global__ void downsweep(int* result, int N) {    
   // Ensure only the first thread of the first block sets the last element to 0
-  // int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
+  int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
   // if (threadIndex == 0) {
   //     result[N - 1] = 0;
   // }
