@@ -45,28 +45,28 @@ static inline int nextPow2(int n) {
 
 __global__ void downsweep(int* result, int N) {
   result[N - 1] = 0;
-  int stride = N/2;
-  while(stride > 0) {
-    int threadIndex = (threadIdx.x + (blockDim.x * blockIdx.x));
-    int leftIndex = threadIndex * (stride * 2) + stride - 1;
-    int rightIndex = threadIndex * (stride * 2) + (stride * 2) - 1;
+  for(int stride = N/2; stride > 0; stride /= 2) {
+    int jump = stride * 2;
+    int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
+    int leftIndex = threadIndex * jump + stride - 1;
+    int rightIndex = threadIndex * jump + jump - 1;
     if(rightIndex < N) {
       int temp = result[rightIndex];
       result[rightIndex] += result[leftIndex];
       result[leftIndex] = temp;
     }
     __syncthreads();
-    stride /= 2;
   }
 }
 
 __global__ void upsweep(int N, int* result) {
 
   for(int stride = 1; stride < N; stride *= 2) {
+    int jump = stride * 2;
     int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
-    int leftIndex = threadIndex * (stride * 2) + stride - 1;
-    int rightIndex = threadIndex * (stride * 2) + (stride * 2) - 1;
-    if(leftIndex < N && rightIndex < N) {
+    int leftIndex = threadIndex * jump + stride - 1;
+    int rightIndex = threadIndex * jump + jump - 1;
+    if(rightIndex < N) {
       result[rightIndex] += result[leftIndex];
     }
     __syncthreads();
