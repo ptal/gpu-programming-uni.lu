@@ -12,7 +12,7 @@
 
 #include "CycleTimer.h"
 
-#define THREADS_PER_BLOCK 256
+#define THREADS_PER_BLOCK 4
 
 
 // helper function to round an integer up to the next power of 2
@@ -43,14 +43,14 @@ static inline int nextPow2(int n) {
 // "in-place" scan, since the timing harness makes a copy of input and
 // places it in result
 
-__global__ void downsweep(int* result, int N, int stride) {    
+__global__ void downsweep(int* result, int N) {    
   // Ensure only the first thread of the first block sets the last element to 0
   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
   if (threadIndex == 0) {
       result[N - 1] = 0;
   }
-  // __syncthreads();
-  // for(int stride = N/2; stride > 0; stride /= 2) {
+  __syncthreads();
+  for(int stride = N/2; stride > 0; stride /= 2) {
     int jump = stride * 2;
     int leftIndex = threadIndex * jump + stride - 1;
     int rightIndex = threadIndex * jump + jump - 1;
@@ -60,12 +60,12 @@ __global__ void downsweep(int* result, int N, int stride) {
       result[leftIndex] = temp;
     }
     __syncthreads();
-  // }
+  }
 }
 
-__global__ void upsweep(int* result, int N, int stride) {
+__global__ void upsweep(int* result, int N) {
   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
-  // for(int stride = 1; stride < N; stride *= 2) {
+  for(int stride = 1; stride < N; stride *= 2) {
     int jump = stride * 2;
     int leftIndex = threadIndex * jump + stride - 1;
     int rightIndex = threadIndex * jump + jump - 1;
@@ -73,7 +73,7 @@ __global__ void upsweep(int* result, int N, int stride) {
       result[rightIndex] += result[leftIndex];
     }
     __syncthreads();
-  // }
+  }
 }
 
 
@@ -91,13 +91,13 @@ void exclusive_scan(int* input, int N, int* result)
   // scan.
   int rounded_N = nextPow2(N);
   int blocks = (N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-  for(int stride = 1; stride < N; stride *= 2) {
-    upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N, stride);
-  }
+  // for(int stride = 1; stride < N; stride *= 2) {
+  upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
+  // }
   cudaDeviceSynchronize();
-  for(int stride = N/2; stride > 0; stride /= 2) {
-    downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N, stride);
-  }
+  // for(int stride = N/2; stride > 0; stride /= 2) {
+  downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
+  // }
   cudaDeviceSynchronize();
 }
 
