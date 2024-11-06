@@ -80,7 +80,7 @@ __global__ void upsweep(int* result, int N) {
 void exclusive_scan(int* input, int N, int* result)
 {
 
-  cudaMemcpy(result, input, N * sizeof(int), cudaMemcpyDeviceToDevice);
+  // cudaMemcpy(result, input, N * sizeof(int), cudaMemcpyDeviceToDevice);
   // TODO:
   //
   // Implement your exclusive scan implementation here.  Keep in
@@ -91,9 +91,9 @@ void exclusive_scan(int* input, int N, int* result)
   // scan.
   int rounded_N = nextPow2(N);
   int blocks = (rounded_N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-  upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
+  upsweep<<<1, THREADS_PER_BLOCK>>>(result, N);
   cudaDeviceSynchronize();
-  downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
+  downsweep<<<1, THREADS_PER_BLOCK>>>(result, N);
   cudaDeviceSynchronize();
 }
 
