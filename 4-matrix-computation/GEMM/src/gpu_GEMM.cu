@@ -58,7 +58,7 @@ void gpu_GEMM(
   try_CUDA( cudaMemcpy(A, mtxA.data, sizeof(T) * mtxA.nnz, cudaMemcpyHostToDevice) );
   try_CUDA( cudaMemcpy(B, mtxB.data, sizeof(T) * mtxB.nnz, cudaMemcpyHostToDevice) );
 
-  gemm<<<threadsPerBlock,blocksPerGrid>>>(
+  gemm<<<blocksPerGrid, threadsPerBlock>>>(
     A, B, C,
     mtxA.m, mtxA.n, mtxB.n,
     mtxA.ld, mtxB.ld, mtxC.ld
