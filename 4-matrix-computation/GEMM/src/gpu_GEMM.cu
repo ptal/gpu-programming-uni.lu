@@ -92,7 +92,7 @@ __global__ void gpu_GEMM_naive(
   size_t const i = blockIdx.x * blockDim.x + threadIdx.x;
   size_t const j = blockIdx.y * blockDim.y + threadIdx.y;
 
-  if ( i > M || j > K ) return;
+  if ( i >= M || j >= K ) return;
 
   T c_ij = static_cast<T>(0);
 
