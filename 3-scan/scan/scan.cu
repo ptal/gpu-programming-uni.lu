@@ -89,8 +89,8 @@ void exclusive_scan(int* input, int N, int* result)
   // on the CPU.  Your implementation will need to make multiple calls
   // to CUDA kernel functions (that you must write) to implement the
   // scan.
-
-  int blocks = (N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+  int rounded_N = nextPow2(N);
+  int blocks = (rounded_N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
   upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
   cudaDeviceSynchronize();
   downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
