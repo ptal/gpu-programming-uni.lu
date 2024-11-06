@@ -5,6 +5,7 @@
 - [Matrix Multiplication Background User's Guide](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html)
 - [Matrix Multiplication on NVIDIA GPU with memory management](https://pages.nist.gov/hedgehog-Tutorials/tutorials/tutorial5.html)
 - [How to Optimize Data Transfers in CUDA C/C++](https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/)
+- [How to Implement Performance Metrics in CUDA C/C++](https://developer.nvidia.com/blog/how-implement-performance-metrics-cuda-cc/)
 
 # Articles
 

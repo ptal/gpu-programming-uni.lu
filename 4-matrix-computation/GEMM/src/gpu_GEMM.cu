@@ -23,13 +23,15 @@ using gemm_fcn = void (*)(
 template<typename T>
 void gpu_GEMM(
   DenseMatrix<T> const& mtxA, DenseMatrix<T> const& mtxB, DenseMatrix<T>& mtxC,
-  size_t const m_block_size, size_t const n_block_size
+  gemm_fcn<T> gemm,
+  float& duration
 );
 
 template<typename T>
 void gpu_GEMM(
   DenseMatrix<T> const& mtxA, DenseMatrix<T> const& mtxB, DenseMatrix<T>& mtxC,
-  gemm_fcn<T> gemm
+  gemm_fcn<T> gemm,
+  float& duration
 ) {
   T* A;
   T* B;
@@ -47,6 +49,12 @@ void gpu_GEMM(
   dim3 threadsPerBlock(M_BLOCK_SIZE, N_BLOCK_SIZE);
   dim3 blocksPerGrid(m_grid_size, n_grid_size);
 
+  cudaEvent_t start, stop;
+  cudaEventCreate(&start);
+  cudaEventCreate(&stop);
+
+  cudaEventRecord(start);
+
   try_CUDA( cudaMemcpy(A, mtxA.data, sizeof(T) * mtxA.nnz, cudaMemcpyHostToDevice) );
   try_CUDA( cudaMemcpy(B, mtxB.data, sizeof(T) * mtxB.nnz, cudaMemcpyHostToDevice) );
 
@@ -58,9 +66,14 @@ void gpu_GEMM(
 
   try_CUDA( cudaMemcpy(mtxC.data, C, sizeof(T) * mtxC.nnz, cudaMemcpyDeviceToHost) );
 
+  cudaEventRecord(stop);
+
   try_CUDA( cudaFreeHost(A) );
   try_CUDA( cudaFreeHost(B) );
   try_CUDA( cudaFreeHost(C) );
+
+  cudaEventSynchronize(stop);
+  cudaEventElapsedTime(&duration, start, stop);
 }
 
 template<typename T>
@@ -206,10 +219,13 @@ int main( int argc, char** argv ) {
   mtxC.n = K;
   std::fill_n(mtxC.data, mtxC.nnz, 0.0);
 
-  gpu_GEMM(mtxA, mtxB, mtxC, gpu_GEMM_naive);
+  float duration = 0.0;
+  gpu_GEMM(mtxA, mtxB, mtxC, gpu_GEMM_naive, duration);
 
   std::cout << "Error (Frobenius norm): "
             << gemm_error(mtxA, mtxB, mtxC)
+            << "\n"
+            << "Duration [ms]: " << duration
             << "\n";
 
   return EXIT_SUCCESS;
