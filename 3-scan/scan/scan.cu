@@ -61,14 +61,15 @@ __global__ void downsweep(int* result, int N) {
 }
 
 __global__ void upsweep(int N, int* result) {
-  int stride = 1;
-  while( stride < N ) {
-    int threadIndex = (threadIdx.x + (blockDim.x * blockIdx.x)) * (stride * 2);
-    if(threadIndex + (stride * 2) - 1 < N) {
-      result[threadIndex + (stride * 2) - 1] += result[threadIndex + stride - 1];
+
+  for(int stride = 1; i < N; i++) {
+    int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
+    int leftIndex = threadIndex * (stride * 2) + stride - 1;
+    int rightIndex = threadIndex * (stride * 2) + (stride * 2) - 1;
+    if(leftIndex < N && rightIndex < N) {
+      result[rightIndex] += result[leftIndex];
     }
     __syncthreads();
-    stride *= 2; 
   }
 }
 
@@ -84,10 +85,10 @@ void exclusive_scan(int* input, int N, int* result)
   // to CUDA kernel functions (that you must write) to implement the
   // scan.
 
-//N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK
-  upsweep<<<1, THREADS_PER_BLOCK>>>(N, result);
+  int blocks = (N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK
+  upsweep<<<blocks, THREADS_PER_BLOCK>>>(N, result);
   cudaDeviceSynchronize();
-  downsweep<<<1, THREADS_PER_BLOCK>>>(result, N);
+  downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
   cudaDeviceSynchronize();
 }
 
