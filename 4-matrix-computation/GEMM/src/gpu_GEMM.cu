@@ -97,9 +97,8 @@ __global__ void gpu_GEMM_coalesce(
   size_t const M, size_t const N, size_t const K,
   size_t const ldA, size_t const ldB, size_t const ldC
 ) {
-
-  size_t const i = blockIdx.x * blockDim.x + threadIdx.x / blockDim.x + threadIdx.y;
-  size_t const j = blockIdx.y * blockDim.y + threadIdx.y / blockDim.y + threadIdx.x;
+  size_t const i = blockIdx.x * blockDim.x + threadIdx.y;
+  size_t const j = blockIdx.y * blockDim.y + threadIdx.x;
 
   if ( i >= M || j >= K ) return;
 
