@@ -104,7 +104,7 @@ void printArray(int* array, size_t N) {
   for(int i = 0; i < N; i++) {
     std::cout << array[i] << " ";
   }
-  std::cout:: std::endl;
+  std::cout:: << std::endl;
 }
 
 double cudaScan(int* inarray, int* end, int* resultarray)
