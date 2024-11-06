@@ -64,7 +64,7 @@ __global__ void upsweep(int N, int* result) {
   int stride = 1;
   while( stride < N ) {
     int threadIndex = (threadIdx.x + (blockDim.x * blockIdx.x)) * (stride * 2);
-    if(threadIndex + stride - 1 < N) {
+    if(threadIndex + stride * 2 - 1 < N) {
       result[threadIndex + stride * 2 - 1] += result[threadIndex + stride - 1];
     }
     __syncthreads();
