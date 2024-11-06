@@ -104,7 +104,7 @@ void printArray(int* array, size_t N) {
   for(int i = 0; i < N; i++) {
     std::cout << array[i] << " ";
   }
-  std::cout:: << std::endl;
+  std::cout << std::endl;
 }
 
 double cudaScan(int* inarray, int* end, int* resultarray)
@@ -136,10 +136,10 @@ double cudaScan(int* inarray, int* end, int* resultarray)
   cudaMemcpy(device_result, inarray, (end - inarray) * sizeof(int), cudaMemcpyHostToDevice);
 
   double startTime = CycleTimer::currentSeconds();
-  printArray(device_input, end - inarray);
-  printArray(device_result, end - inarray);
+  printArray(device_input, N);
+  printArray(device_result, N);
   exclusive_scan(device_input, N, device_result);
-  printArray(device_result, end - inarray);
+  printArray(device_result, N);
 
   // Wait for completion
   cudaDeviceSynchronize();
