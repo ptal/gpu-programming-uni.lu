@@ -39,7 +39,7 @@ double benchmark_averaged_ms(F&& f, unsigned long long int n) {
 }
 
 template<typename T>
-void append_random( T& v, size_t n, std::seed_seq& s ) {
+void append_random( T& v, size_t const n, std::seed_seq& s ) {
   std::mt19937 mersenne_generator{s};
   std::uniform_int_distribution<int> distribution{0, std::numeric_limits<int>::max()};
   std::generate_n(
@@ -53,9 +53,14 @@ void append_random( T& v, size_t n, std::seed_seq& s ) {
 }
 
 template<typename T>
-void fill_random( T& v, size_t n, std::seed_seq& s ) {
+inline void append_random( T& v, size_t const n, std::seed_seq&& s ) {
+  append_random<T>(v, n, s);
+}
+
+template<typename T>
+void fill_random( T*& v, size_t const n, std::seed_seq& s ) {
   std::mt19937 mersenne_generator{s};
-  std::uniform_int_distribution<int> distribution{0, std::numeric_limits<int>::max()};
+  std::uniform_int_distribution<int> distribution{0, 100};
   std::generate_n(
     v,
     n,
@@ -64,3 +69,9 @@ void fill_random( T& v, size_t n, std::seed_seq& s ) {
     }
   );
 }
+
+template<typename T>
+inline void fill_random( T*& v, size_t const n, std::seed_seq&& s ) {
+  fill_random<T>(v, n, s);
+}
+
