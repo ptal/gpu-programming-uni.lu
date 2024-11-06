@@ -42,6 +42,39 @@ static inline int nextPow2(int n) {
 // Also, as per the comments in cudaScan(), you can implement an
 // "in-place" scan, since the timing harness makes a copy of input and
 // places it in result
+
+__global__ void downsweep(int* result, int N) {
+  result[N - 1] = 0;
+  int stride = N/2;
+  while(stride > 0) {
+    int threadIndex = (threadIdx.x + (blockDim.x * blockIdx.x));
+    int leftIndex = threadIndex * (stride * 2) + stride - 1;
+    int rightIndex = threadIndex * (stride * 2) + stride * 2 - 1;
+    if(rightIndex < N) {
+      int temp = result[rightIndex];
+      result[rightIndex] += result[leftIndex];
+      result[leftIndex] = temp;
+    }
+    __syncthreads();
+    stride /= 2;
+  }
+  return 0;
+}
+
+__global__ void upsweep(int N, int* result) {
+  int stride = 1;
+  while( stride < N ) {
+    int threadIndex = (threadIdx.x + (blockDim.x * blockIdx.x)) * (stride * 2);
+    if(threadIndex + stride - 1 < N) {
+      result[threadIndex + stride * 2 - 1] += result[threadIndex + stride - 1];
+    }
+    __syncthreads();
+    stride *= 2; 
+  }
+
+  return 0;
+}
+
 void exclusive_scan(int* input, int N, int* result)
 {
 
@@ -54,6 +87,10 @@ void exclusive_scan(int* input, int N, int* result)
   // to CUDA kernel functions (that you must write) to implement the
   // scan.
 
+  upsweep<<<(N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK, THREADS_PER_BLOCK>>>(int N, int* result);
+  cudaDeviceSynchronize();
+  downsweep<<<(N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK, THREADS_PER_BLOCK>>>(int* result, int N);
+  cudaDeviceSynchronize();
 }
 
 
@@ -157,7 +194,13 @@ int find_repeats(int* device_input, int length, int* device_output) {
   // exclusive_scan function with them. However, your implementation
   // must ensure that the results of find_repeats are correct given
   // the actual array length.
-
+  int index = 0;
+  for(int i = 0; i < length; i++) {
+    if(device_input[i] == 1) {
+      device_output[index] = i;
+      index++;
+    }
+  }
   return 0; 
 }
 
