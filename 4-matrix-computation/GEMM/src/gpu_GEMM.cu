@@ -25,13 +25,6 @@ void gpu_GEMM(
   DenseMatrix<T> const& mtxA, DenseMatrix<T> const& mtxB, DenseMatrix<T>& mtxC,
   gemm_fcn<T> gemm,
   float& duration
-);
-
-template<typename T>
-void gpu_GEMM(
-  DenseMatrix<T> const& mtxA, DenseMatrix<T> const& mtxB, DenseMatrix<T>& mtxC,
-  gemm_fcn<T> gemm,
-  float& duration
 ) {
   T* A;
   T* B;
@@ -81,13 +74,6 @@ __global__ void gpu_GEMM_naive(
   T const* const A, T const* const B, T* const C,
   size_t const M, size_t const N, size_t const K,
   size_t const ldA, size_t const ldB, size_t const ldC
-);
-
-template<typename T>
-__global__ void gpu_GEMM_naive(
-  T const* const A, T const* const B, T* const C,
-  size_t const M, size_t const N, size_t const K,
-  size_t const ldA, size_t const ldB, size_t const ldC
 ) {
   size_t const i = blockIdx.x * blockDim.x + threadIdx.x;
   size_t const j = blockIdx.y * blockDim.y + threadIdx.y;
@@ -104,13 +90,6 @@ __global__ void gpu_GEMM_naive(
 
   C[i + ldC*j] = c_ij;
 }
-
-template<typename T>
-__global__ void gpu_GEMM_coalesce(
-  T const* const A, T const* const B, T* const C,
-  size_t const M, size_t const N, size_t const K,
-  size_t const ldA, size_t const ldB, size_t const ldC
-);
 
 template<typename T>
 __global__ void gpu_GEMM_coalesce(
