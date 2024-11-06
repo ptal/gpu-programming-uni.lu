@@ -136,10 +136,10 @@ double cudaScan(int* inarray, int* end, int* resultarray)
   cudaMemcpy(device_result, inarray, (end - inarray) * sizeof(int), cudaMemcpyHostToDevice);
 
   double startTime = CycleTimer::currentSeconds();
-  printArray(device_input, N);
-  printArray(device_result, N);
+  // printArray(device_input, N);
+  // printArray(device_result, N);
   exclusive_scan(device_input, N, device_result);
-  printArray(device_result, N);
+  // printArray(device_result, N);
 
   // Wait for completion
   cudaDeviceSynchronize();
