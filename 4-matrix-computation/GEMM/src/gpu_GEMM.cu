@@ -10,6 +10,9 @@
 #include "utility.hpp"
 #include "datatypes.hpp"
 
+#define N_BLOCK_SIZE 16
+#define M_BLOCK_SIZE 16
+
 template<typename T>
 using gemm_fcn = void (*)(
   T const* const A, T const* const B, T* const C,
@@ -26,7 +29,6 @@ void gpu_GEMM(
 template<typename T>
 void gpu_GEMM(
   DenseMatrix<T> const& mtxA, DenseMatrix<T> const& mtxB, DenseMatrix<T>& mtxC,
-  size_t const m_block_size, size_t const n_block_size,
   gemm_fcn<T> gemm
 ) {
   T* A;
@@ -37,14 +39,12 @@ void gpu_GEMM(
   try_CUDA(cudaMallocHost(&B, sizeof(T) * mtxB.nnz));
   try_CUDA(cudaMallocHost(&C, sizeof(T) * mtxC.nnz));
 
-  size_t m_grid_size = mtxC.m/m_block_size;
-  if ( mtxC.m % m_block_size != 0 ) m_grid_size++;
-  size_t n_grid_size = mtxC.n/n_block_size;
-  if ( mtxC.n % n_block_size != 0 ) n_grid_size++;
+  size_t m_grid_size = mtxC.m/M_BLOCK_SIZE;
+  if ( mtxC.m % M_BLOCK_SIZE != 0 ) m_grid_size++;
+  size_t n_grid_size = mtxC.n/N_BLOCK_SIZE;
+  if ( mtxC.n % N_BLOCK_SIZE != 0 ) n_grid_size++;
 
-  printf("Grid size: %lu, %lu\n", m_grid_size, n_grid_size);
-
-  dim3 threadsPerBlock(m_block_size, n_block_size);
+  dim3 threadsPerBlock(M_BLOCK_SIZE, N_BLOCK_SIZE);
   dim3 blocksPerGrid(m_grid_size, n_grid_size);
 
   try_CUDA( cudaMemcpy(A, mtxA.data, sizeof(T) * mtxA.nnz, cudaMemcpyHostToDevice) );
@@ -152,12 +152,6 @@ float gemm_error(DenseMatrix<float> const& mtxA, DenseMatrix<float> const& mtxB,
     beta, accu.data, accu.ld
   );
 
-  std::cout << "Matrix C:" << "\n";
-  mtxC.display(std::cout);
-
-  std::cout << "Matrix:" << "\n";
-  accu.display(std::cout);
-
   // accu <- accu - C
   matrix_saxpy(
     K,
@@ -169,9 +163,9 @@ float gemm_error(DenseMatrix<float> const& mtxA, DenseMatrix<float> const& mtxB,
 }
 
 int main( int argc, char** argv ) {
-  if ( argc != 7 ) {
+  if ( argc != 4 ) {
     std::cout << "Usage: " << argv[0]
-      << "<M> <N> <K> <lda> <ldb> <ldc>" << "\n"
+      << "<M> <N> <K>" << "\n"
       << "\n"
       << "Computes the product of random matrices (constant seed):\n"
       << "  C = A * B" << "\n"
@@ -186,9 +180,9 @@ int main( int argc, char** argv ) {
   size_t const M = std::stoll(argv[1]);
   size_t const N = std::stoll(argv[2]);
   size_t const K = std::stoll(argv[3]);
-  size_t const lda = std::stoll(argv[4]);
-  size_t const ldb = std::stoll(argv[5]);
-  size_t const ldc = std::stoll(argv[6]);
+  size_t const lda = M;
+  size_t const ldb = N;
+  size_t const ldc = M;
 
   int64_t seed_value = 0;
 
@@ -212,7 +206,7 @@ int main( int argc, char** argv ) {
   mtxC.n = K;
   std::fill_n(mtxC.data, mtxC.nnz, 0.0);
 
-  gpu_GEMM(mtxA, mtxB, mtxC, 3, 3, gpu_GEMM_naive);
+  gpu_GEMM(mtxA, mtxB, mtxC, gpu_GEMM_naive);
 
   std::cout << "Error (Frobenius norm): "
             << gemm_error(mtxA, mtxB, mtxC)
