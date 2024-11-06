@@ -43,20 +43,15 @@ static inline int nextPow2(int n) {
 // "in-place" scan, since the timing harness makes a copy of input and
 // places it in result
 
-__global__ void downsweep(int* result, int N) {
-  int rounded_length = 1 << (32 - __clz(N - 1));  // Next power of 2
-    
+__global__ void downsweep(int* result, int N) {    
   // Initialize the last element to 0
-  if(threadIdx.x == 0 && blockIdx.x == 0) {
-      result[N - 1] = 0;
-  }
-  __syncthreads();
-  for(int stride = rounded_length/2; stride > 0; stride /= 2) {
+  result[N - 1] = 0;
+  for(int stride = N/2; stride > 0; stride /= 2) {
     int jump = stride * 2;
     int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
     int leftIndex = threadIndex * jump + stride - 1;
     int rightIndex = threadIndex * jump + jump - 1;
-    if(rightIndex < N && leftIndex >= 0) {
+    if(rightIndex < N) {
       int temp = result[rightIndex];
       result[rightIndex] += result[leftIndex];
       result[leftIndex] = temp;
@@ -66,13 +61,12 @@ __global__ void downsweep(int* result, int N) {
 }
 
 __global__ void upsweep(int* result, int N) {
-  int rounded_length = 1 << (32 - __clz(N - 1));  // Next power of 2
-  for(int stride = 1; stride < rounded_length; stride *= 2) {
+  for(int stride = 1; stride < N; stride *= 2) {
     int jump = stride * 2;
     int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
     int leftIndex = threadIndex * jump + stride - 1;
     int rightIndex = threadIndex * jump + jump - 1;
-    if(rightIndex < N && leftIndex >= 0) {
+    if(rightIndex < N) {
       result[rightIndex] += result[leftIndex];
     }
     __syncthreads();
