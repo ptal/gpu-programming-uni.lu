@@ -62,7 +62,7 @@ __global__ void downsweep(int* result, int N) {
 
 __global__ void upsweep(int N, int* result) {
 
-  for(int stride = 1; stride < N; i++) {
+  for(int stride = 1; stride < N; stride *= 2) {
     int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
     int leftIndex = threadIndex * (stride * 2) + stride - 1;
     int rightIndex = threadIndex * (stride * 2) + (stride * 2) - 1;
