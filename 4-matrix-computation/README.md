@@ -6,6 +6,7 @@
 - [Matrix Multiplication on NVIDIA GPU with memory management](https://pages.nist.gov/hedgehog-Tutorials/tutorials/tutorial5.html)
 - [How to Optimize Data Transfers in CUDA C/C++](https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/)
 - [How to Implement Performance Metrics in CUDA C/C++](https://developer.nvidia.com/blog/how-implement-performance-metrics-cuda-cc/)
+- [Using Shared Memory in CUDA C/C++](https://developer.nvidia.com/blog/using-shared-memory-cuda-cc/)
 
 # Articles
 

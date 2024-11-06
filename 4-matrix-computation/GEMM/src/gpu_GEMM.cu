@@ -105,6 +105,36 @@ __global__ void gpu_GEMM_naive(
   C[i + ldC*j] = c_ij;
 }
 
+template<typename T>
+__global__ void gpu_GEMM_coalesce(
+  T const* const A, T const* const B, T* const C,
+  size_t const M, size_t const N, size_t const K,
+  size_t const ldA, size_t const ldB, size_t const ldC
+);
+
+template<typename T>
+__global__ void gpu_GEMM_coalesce(
+  T const* const A, T const* const B, T* const C,
+  size_t const M, size_t const N, size_t const K,
+  size_t const ldA, size_t const ldB, size_t const ldC
+) {
+
+  size_t const i = blockIdx.x * blockDim.x + threadIdx.x / blockDim.x + threadIdx.y;
+  size_t const j = blockIdx.y * blockDim.y + threadIdx.y / blockDim.y + threadIdx.x;
+
+  if ( i >= M || j >= K ) return;
+
+  T c_ij = static_cast<T>(0);
+
+  for ( size_t l = 0; l < N; l++ ) {
+    T const a_il = A[i + ldA*l];
+    T const b_lj = B[l + ldB*j];
+    c_ij += a_il * b_lj;
+  }
+
+  C[i + ldC*j] = c_ij;
+}
+
 float f_norm(DenseMatrix<float> const& mtx) {
   float norm = 0.0;
   for ( size_t i = 0; i < mtx.n; i++ ) {
@@ -222,11 +252,18 @@ int main( int argc, char** argv ) {
   float duration = 0.0;
   gpu_GEMM(mtxA, mtxB, mtxC, gpu_GEMM_naive, duration);
 
-  std::cout << "Error (Frobenius norm): "
-            << gemm_error(mtxA, mtxB, mtxC)
-            << "\n"
-            << "Duration [ms]: " << duration
-            << "\n";
+  std::cout << "GEMM naive\n"
+            << "  - Error (Frobenius norm): "
+            << gemm_error(mtxA, mtxB, mtxC) << "\n"
+            << "  - Duration [ms]: " << duration  << "\n";
+
+  duration = 0.0;
+  gpu_GEMM(mtxA, mtxB, mtxC, gpu_GEMM_coalesce, duration);
+
+  std::cout << "GEMM (anti) coalesce\n"
+            << "  - Error (Frobenius norm): "
+            << gemm_error(mtxA, mtxB, mtxC)  << "\n"
+            << "  - Duration [ms]: " << duration  << "\n";
 
   return EXIT_SUCCESS;
 }
