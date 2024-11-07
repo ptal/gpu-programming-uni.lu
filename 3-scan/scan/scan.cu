@@ -12,7 +12,7 @@
 
 #include "CycleTimer.h"
 
-#define THREADS_PER_BLOCK 256
+#define THREADS_PER_BLOCK 4
 
 
 // helper function to round an integer up to the next power of 2
@@ -42,6 +42,18 @@ static inline int nextPow2(int n) {
 // Also, as per the comments in cudaScan(), you can implement an
 // "in-place" scan, since the timing harness makes a copy of input and
 // places it in result
+
+
+void printDeviceArray(int* device_array, int N, const char* label) {
+    int* host_array = new int[N];
+    cudaMemcpy(host_array, device_array, N * sizeof(int), cudaMemcpyDeviceToHost);
+    std::cout << label << ": ";
+    for (int i = 0; i < N; i++) {
+        std::cout << host_array[i] << " ";
+    }
+    std::cout << std::endl;
+    delete[] host_array;
+}
 
 __global__ void downsweep(int* result,  int N) {    
   // Ensure only the first thread of the first block sets the last element to 0
@@ -76,85 +88,52 @@ __global__ void upsweep(int* result,  int N) {
   }
 }
 
-__global__ void clear_last_element(int* result, int N) {
-    result[N - 1] = 0;
-}
 
+void exclusive_scan(int* input, int N, int* result)
+{
 
-// void exclusive_scan(int* input, int N, int* result)
-// {
+  // cudaMemcpy(result, input, N * sizeof(int), cudaMemcpyDeviceToDevice);
+  // TODO:
+  //
+  // Implement your exclusive scan implementation here.  Keep in
+  // mind that although the arguments to this function are device
+  // allocated arrays, this is a function that is running in a thread
+  // on the CPU.  Your implementation will need to make multiple calls
+  // to CUDA kernel functions (that you must write) to implement the
+  // scan.
+  // int rounded_N = nextPow2(N);
+  // int blocks = (N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+  // // for(int stride = 1; stride < N; stride *= 2) {
+  // upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
+  // // }
+  // cudaDeviceSynchronize();
+  // // for(int stride = N/2; stride > 0; stride /= 2) {
+  // downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
+  // // }
+  // cudaDeviceSynchronize();
 
-//   // cudaMemcpy(result, input, N * sizeof(int), cudaMemcpyDeviceToDevice);
-//   // TODO:
-//   //
-//   // Implement your exclusive scan implementation here.  Keep in
-//   // mind that although the arguments to this function are device
-//   // allocated arrays, this is a function that is running in a thread
-//   // on the CPU.  Your implementation will need to make multiple calls
-//   // to CUDA kernel functions (that you must write) to implement the
-//   // scan.
-//   // int rounded_N = nextPow2(N);
-//   int blocks = (N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-//   // for(int stride = 1; stride < N; stride *= 2) {
-//   upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
-//   // }
-//   cudaDeviceSynchronize();
-//   // for(int stride = N/2; stride > 0; stride /= 2) {
-//   downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
-//   // }
-//   cudaDeviceSynchronize();
+  int rounded_length = nextPow2(N);
+  cudaMemcpy(result, input, N * sizeof(int), cudaMemcpyDeviceToDevice);
 
-// }
+  int blocks = (rounded_length + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
 
-__global__ void upsweep_kernel(int* result, int N, int d) {
-    int tid = blockIdx.x * blockDim.x + threadIdx.x;
-    int stride = 1 << (d + 1); // stride = 2^(d+1)
+  // Debug: print initial input
+  printDeviceArray(result, N, "Initial input copied to result");
 
-    int idx = stride * (tid + 1) - 1;
-    if (idx < N) {
-        result[idx] += result[idx - (1 << d)];
-    }
-}
+  // Upsweep phase
+  upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, rounded_length);
+  cudaDeviceSynchronize();
 
+  // Debug: print array after upsweep
+  printDeviceArray(result, N, "After upsweep");
 
-__global__ void downsweep_kernel(int* result, int N, int d) {
-    int tid = blockIdx.x * blockDim.x + threadIdx.x;
-    int stride = 1 << (d + 1); // stride = 2^(d+1)
+  // Downsweep phase
+  downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, rounded_length);
+  cudaDeviceSynchronize();
 
-    int idx = stride * (tid + 1) - 1;
-    if (idx < N) {
-        int t = result[idx - (1 << d)];
-        result[idx - (1 << d)] = result[idx];
-        result[idx] += t;
-    }
-}
+  // Debug: print array after downsweep
+  printDeviceArray(result, N, "After downsweep");
 
-
-
-void exclusive_scan(int* input, int N, int* result) {
-    // Step 1: Copy input to result
-    cudaMemcpy(result, input, N * sizeof(int), cudaMemcpyDeviceToDevice);
-
-    // Step 2: Perform upsweep phase
-    int levels = log2(N); // Number of levels needed
-    for (int d = 0; d < levels; d++) {
-        int threads = (N >> (d + 1));
-        int blocks = (threads + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-        upsweep_kernel<<<blocks, THREADS_PER_BLOCK>>>(result, N, d);
-        cudaDeviceSynchronize();
-    }
-
-    // Step 3: Clear the last element to make it an exclusive scan
-    clear_last_element<<<1, 1>>>(result, N);
-    cudaDeviceSynchronize();
-
-    // Step 4: Perform downsweep phase
-    for (int d = levels - 1; d >= 0; d--) {
-        int threads = (N >> (d + 1));
-        int blocks = (threads + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-        downsweep_kernel<<<blocks, THREADS_PER_BLOCK>>>(result, N, d);
-        cudaDeviceSynchronize();
-    }
 }
 
 
@@ -166,13 +145,8 @@ void exclusive_scan(int* input, int N, int* result) {
 // and times the invocation of the exclusive_scan() function
 // above. Students should not modify it.
 
-void printArray(int* array, size_t N) {
-  std::cout << "The resultant Array is: ";
-  for(int i = 0; i < N; i++) {
-    std::cout << array[i] << " ";
-  }
-  std::cout << std::endl;
-}
+// Debugging function to print device arrays after copying them to host
+
 
 double cudaScan(int* inarray, int* end, int* resultarray)
 {
