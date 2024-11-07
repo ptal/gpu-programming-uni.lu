@@ -134,12 +134,18 @@ void exclusive_scan(int* input, int N, int* result)
   // // }
   // cudaDeviceSynchronize();
 
+  // Debug: print initial input
+  printDeviceArray(result, N, "Initial input copied to result");
+
   for(int stride = 1; stride < N; stride *= 2) {
     int strided = 2 * stride;
     int num_blocks = (N / strided + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
     upsweep<<<num_blocks, THREADS_PER_BLOCK>>>(input, N, stride);
     cudaDeviceSynchronize();
   }
+
+  // Debug: print array after upsweep
+  printDeviceArray(result, N, "After upsweep");
 
   int zero = 0;
   cudaMemcpy(result + N - 1, &zero, sizeof(int), cudaMemcpyHostToDevice);
@@ -150,6 +156,11 @@ void exclusive_scan(int* input, int N, int* result)
     downsweep<<<num_blocks, THREADS_PER_BLOCK>>>(input, N, stride);
     cudaDeviceSynchronize();
   }
+
+  
+  // Debug: print array after downsweep
+  printDeviceArray(result, N, "After downsweep");
+
 
   // int rounded_length = nextPow2(N);
   // cudaMemcpy(result, input, N * sizeof(int), cudaMemcpyDeviceToDevice);
