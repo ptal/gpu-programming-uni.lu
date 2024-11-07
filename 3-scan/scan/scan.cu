@@ -55,25 +55,25 @@ void printDeviceArray(int* device_array, int N, const char* label) {
     delete[] host_array;
 }
 
-__global__ void downsweep(int* result,  int N) {    
-  // Ensure only the first thread of the first block sets the last element to 0
-  int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
-  if (threadIndex == 0) {
-      result[N - 1] = 0;
-  }
-  __syncthreads();
-  for(int stride = N/2; stride > 0; stride /= 2) {
-    int jump = stride * 2;
-    int leftIndex = threadIndex * jump + stride - 1;
-    int rightIndex = threadIndex * jump + jump - 1;
-    if(rightIndex < N) {
-      int temp = result[rightIndex];
-      result[rightIndex] += result[leftIndex];
-      result[leftIndex] = temp;
-    }
-    __syncthreads();
-  }
-}
+// __global__ void downsweep(int* result,  int N) {    
+//   // Ensure only the first thread of the first block sets the last element to 0
+//   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
+//   if (threadIndex == 0) {
+//       result[N - 1] = 0;
+//   }
+//   __syncthreads();
+//   for(int stride = N/2; stride > 0; stride /= 2) {
+//     int jump = stride * 2;
+//     int leftIndex = threadIndex * jump + stride - 1;
+//     int rightIndex = threadIndex * jump + jump - 1;
+//     if(rightIndex < N) {
+//       int temp = result[rightIndex];
+//       result[rightIndex] += result[leftIndex];
+//       result[leftIndex] = temp;
+//     }
+//     __syncthreads();
+//   }
+// }
 
 // __global__ void upsweep(int* result,  int N) {
 //   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
