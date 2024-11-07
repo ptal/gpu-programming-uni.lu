@@ -75,16 +75,38 @@ __global__ void downsweep(int* result,  int N) {
   }
 }
 
-__global__ void upsweep(int* result,  int N) {
-  int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
-  for(int stride = 1; stride < N; stride *= 2) {
-    int jump = stride * 2;
-    int leftIndex = threadIndex * jump + stride - 1;
-    int rightIndex = threadIndex * jump + jump - 1;
-    if(rightIndex < N) {
-      result[rightIndex] += result[leftIndex];
-    }
-    __syncthreads();
+// __global__ void upsweep(int* result,  int N) {
+//   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
+//   for(int stride = 1; stride < N; stride *= 2) {
+//     int jump = stride * 2;
+//     int leftIndex = threadIndex * jump + stride - 1;
+//     int rightIndex = threadIndex * jump + jump - 1;
+//     if(rightIndex < N) {
+//       result[rightIndex] += result[leftIndex];
+//     }
+//     __syncthreads();
+//   }
+// }
+
+__global__ void upsweep(int* result, int N, int stride) {
+  int threadId = threadIdx.x + (blockDim.x * blockIdx.x);
+  int strided = stride * 2;
+  int splits = N / strided;
+  if(threadId < splits) {
+    int jump = threadId * strided;
+    result[jump + strided - 1] += result[jump + stride - 1]
+  }
+}
+
+__global__ void downsweep(int* result, int N, int stride) {
+  int threadId = threadIdx.x + (blockDim.x * blockIdx.x);
+  int strided = stride * 2;
+  int splits = N / strided;
+  if(threadId < splits) {
+    int jump = threadId * strided;
+    int temp = result[jump + strided - 1];
+    result[jump + strided - 1] += result[jump + stride - 1];
+    result[jump + stride - 1] = temp;
   }
 }
 
@@ -112,27 +134,44 @@ void exclusive_scan(int* input, int N, int* result)
   // // }
   // cudaDeviceSynchronize();
 
-  int rounded_length = nextPow2(N);
-  cudaMemcpy(result, input, N * sizeof(int), cudaMemcpyDeviceToDevice);
+  for(int stride = 1; stride < N; stride *= 2) {
+    int strided = 2 * stride;
+    int num_blocks = (N / strided + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+    upsweep<<<num_blocks, THREADS_PER_BLOCK>>>(input, N, stride);
+    cudaDeviceSynchronize();
+  }
 
-  int blocks = (rounded_length + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+  int zero = 0;
+  cudaMemcpy(result + N - 1, &zero, sizeof(int), cudaMemcpyHostToDevice);
 
-  // Debug: print initial input
-  printDeviceArray(result, N, "Initial input copied to result");
+  for(int stride = N/2; stride >= 1; stride /= 2) {
+    int strided = 2 * stride;
+    int num_blocks = (N / strided + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+    downsweep<<<num_blocks, THREADS_PER_BLOCK>>>(input, N, stride);
+    cudaDeviceSynchronize();
+  }
 
-  // Upsweep phase
-  upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, rounded_length);
-  cudaDeviceSynchronize();
+  // int rounded_length = nextPow2(N);
+  // cudaMemcpy(result, input, N * sizeof(int), cudaMemcpyDeviceToDevice);
 
-  // Debug: print array after upsweep
-  printDeviceArray(result, N, "After upsweep");
+  // int blocks = (rounded_length + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
 
-  // Downsweep phase
-  downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, rounded_length);
-  cudaDeviceSynchronize();
+  // // Debug: print initial input
+  // printDeviceArray(result, N, "Initial input copied to result");
 
-  // Debug: print array after downsweep
-  printDeviceArray(result, N, "After downsweep");
+  // // Upsweep phase
+  // upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, rounded_length);
+  // cudaDeviceSynchronize();
+
+  // // Debug: print array after upsweep
+  // printDeviceArray(result, N, "After upsweep");
+
+  // // Downsweep phase
+  // downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, rounded_length);
+  // cudaDeviceSynchronize();
+
+  // // Debug: print array after downsweep
+  // printDeviceArray(result, N, "After downsweep");
 
 }
 
