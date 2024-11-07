@@ -292,10 +292,12 @@ double cudaScanThrust(int* inarray, int* end, int* resultarray) {
 
 __global__ void map_repeats(int* input, int N, int* output) {
   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
-  if(input[threadIndex] == input[threadIndex + 1]) {
-    output[threadIndex] = 1;
-  } else {
-    output[threadIndex] = 0;
+  if(threadIndex < N - 1) {
+    if(input[threadIndex] == input[threadIndex + 1]) {
+      output[threadIndex] = 1;
+    } else {
+      output[threadIndex] = 0;
+    }
   }
 }
 
@@ -335,6 +337,7 @@ int find_repeats(int* device_input, int length, int* device_output) {
   map_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_input, length, device_flags);
   cudaDeviceSynchronize();
 
+  cudaMemSet(device_output + length - 1, 0, sizeof(int) * (rounded_length - length + 1))
   exclusive_scan(device_flags, rounded_length, device_scan);
   cudaDeviceSynchronize();
 
