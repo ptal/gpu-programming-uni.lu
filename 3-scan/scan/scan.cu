@@ -94,7 +94,7 @@ __global__ void upsweep(int* result, int N, int stride) {
   int splits = N / strided;
   if(threadId < splits) {
     int jump = threadId * strided;
-    result[jump + strided - 1] += result[jump + stride - 1]
+    result[jump + strided - 1] += result[jump + stride - 1];
   }
 }
 
