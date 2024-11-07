@@ -12,7 +12,7 @@
 
 #include "CycleTimer.h"
 
-#define THREADS_PER_BLOCK 4
+#define THREADS_PER_BLOCK 256
 
 
 // helper function to round an integer up to the next power of 2
