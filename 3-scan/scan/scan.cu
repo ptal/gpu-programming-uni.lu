@@ -337,7 +337,7 @@ int find_repeats(int* device_input, int length, int* device_output) {
   map_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_input, length, device_flags);
   cudaDeviceSynchronize();
 
-  cudaMemSet(device_output + length - 1, 0, sizeof(int) * (rounded_length - length + 1))
+  cudaMemSet(device_output + length - 1, 0, sizeof(int) * (rounded_length - length + 1));
   exclusive_scan(device_flags, rounded_length, device_scan);
   cudaDeviceSynchronize();
 
