@@ -232,7 +232,7 @@ double cudaScan(int* inarray, int* end, int* resultarray)
   double startTime = CycleTimer::currentSeconds();
   // printArray(device_input, N);
   // printArray(device_result, N);
-  exclusive_scan(device_input, N, device_result);
+  exclusive_scan(device_input, rounded_length, device_result);
   // printArray(device_result, N);
 
   // Wait for completion
