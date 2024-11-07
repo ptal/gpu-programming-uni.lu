@@ -76,6 +76,10 @@ __global__ void upsweep(int* result,  int N) {
   }
 }
 
+__global__ void clear_last_element(int* result, int N) {
+    result[N - 1] = 0;
+}
+
 
 // void exclusive_scan(int* input, int N, int* result)
 // {
