@@ -5,4 +5,4 @@ srun --time=00:05:00 \
   --ntasks=1 \
   --gpus-per-task=1 \
   --export=ALL \
-  bash -l -c "module load compiler/NVHPC && ./cudaScan -m scan -n 1000000"
+  bash -l -c "module load compiler/NVHPC && ./cudaScan -m scan -n 10000000"
