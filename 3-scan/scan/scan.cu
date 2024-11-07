@@ -137,7 +137,7 @@ void exclusive_scan(int* input, int N, int* result)
   // Debug: print initial input
   printDeviceArray(result, N, "Initial input copied to result");
 
-  for(int stride = 1; stride < N; stride *= 2) {
+  for(int stride = 1; stride <= N/2; stride *= 2) {
     int strided = 2 * stride;
     int num_blocks = (N / strided + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
     upsweep<<<num_blocks, THREADS_PER_BLOCK>>>(result, N, stride);
