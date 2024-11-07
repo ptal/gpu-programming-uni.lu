@@ -3,6 +3,7 @@
 #include <getopt.h>
 #include <string>
 #include <cstring>
+#include <ctime>
 
 #include "CycleTimer.h"
 
