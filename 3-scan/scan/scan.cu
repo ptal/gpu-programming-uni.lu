@@ -302,10 +302,10 @@ __global__ void map_repeats(int* input, int N, int* output) {
 }
 
 
-__global__ void get_repeats(int* scan, int* output, int* flags) {
+__global__ void get_repeats(int* scan, int* output, int* flags, int length) {
   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
   // if([threadIndex] == 1)
-  if(flags[threadIndex] == 1) {
+  if(threadIndex < length - 1 && flags[threadIndex] == 1) {
     output[scan[threadIndex]] = threadIndex;
   }
 }
@@ -346,7 +346,7 @@ int find_repeats(int* device_input, int length, int* device_output) {
   exclusive_scan(device_flags, rounded_length, device_scan);
   cudaDeviceSynchronize();
 
-  get_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_scan, device_output, device_flags);
+  get_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_scan, device_output, device_flags, length);
   cudaDeviceSynchronize();
   // int* 
 
@@ -360,10 +360,19 @@ int find_repeats(int* device_input, int length, int* device_output) {
   //     index++;
   //   }
   // }
-  int count_of_repeats = 0; // Host variable to hold the count
-  cudaMemcpy(&count_of_repeats, device_scan + length - 1, sizeof(int), cudaMemcpyDeviceToHost);
-
-  return count_of_repeats; 
+    // Get the total count (last element of scan + last flag)
+  int total_repeats;
+  int last_flag;
+  cudaMemcpy(&total_repeats, device_scan + length - 1, sizeof(int), 
+              cudaMemcpyDeviceToHost);
+  cudaMemcpy(&last_flag, device_flags + length - 2, sizeof(int), 
+              cudaMemcpyDeviceToHost);
+  
+  // Clean up temporary arrays
+  cudaFree(device_flags);
+  cudaFree(device_scan);
+  
+  return total_repeats + last_flag;
 }
 
 
