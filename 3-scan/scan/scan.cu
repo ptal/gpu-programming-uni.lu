@@ -109,7 +109,7 @@ __global__ void downsweep(int* result, int N, int stride) {
     result[jump + strided - 1] += result[jump + stride - 1];
     result[jump + stride - 1] = temp;
   }
-  __synthreads();
+  __syncthreads();
 }
 
 
@@ -144,7 +144,7 @@ void exclusive_scan(int* input, int N, int* result)
     int num_blocks = (N / strided + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
     upsweep<<<num_blocks, THREADS_PER_BLOCK>>>(result, N, stride);
     cudaDeviceSynchronize();
-    printDeviceArray(result, N, "UPSWEEEP AFTER " + std::to_string(stride) + " Stride");
+    printDeviceArray(result, N, "UPSWEEEP AFTER");
   }
 
   // Debug: print array after upsweep
