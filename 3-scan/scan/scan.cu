@@ -348,12 +348,12 @@ int find_repeats(int* device_input, int length, int* device_output) {
   // exclusive_scan(device_input, length, device_output);
   // cudaDeviceSynchronize();
   int index = 0;
-  for(int i = 0; i < length; i++) {
-    if(device_scan[i] == 1) {
-      device_output[index] = i;
-      index++;
-    }
-  }
+  // for(int i = 0; i < length; i++) {
+  //   if(device_scan[i] == 1) {
+  //     device_output[index] = i;
+  //     index++;
+  //   }
+  // }
   return index; 
 }
 
