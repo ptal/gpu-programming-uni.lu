@@ -290,6 +290,20 @@ double cudaScanThrust(int* inarray, int* end, int* resultarray) {
 }
 
 
+__global__ void map_repeats(int* input, int N, int* output) {
+  int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
+  if(input[threadIndex] == input[threadIndex + 1]) {
+    output[threadIndex] = 1;
+  } else {
+    output[threadIndex] = 0;
+  }
+}
+
+// __global__ void get_repeats(int* input, int* scan, int* output) {
+//   // int threadIndex = threasIdx.x 
+// }
+
+
 // find_repeats --
 //
 // Given an array of integers `device_input`, returns an array of all
@@ -308,22 +322,36 @@ int find_repeats(int* device_input, int length, int* device_output) {
   // exclusive_scan function with them. However, your implementation
   // must ensure that the results of find_repeats are correct given
   // the actual array length.
+  int* device_flags;
+  int* device_scan;
+  rounded_length = nextPow2(N);
 
-  // cudaMalloc((void **)&device_result, sizeof(int) * N);
-  // cudaMalloc((void **)&device_input, sizeof(int) * N);
+  cudaMalloc((void **)&device_flags, sizeof(int) * rounded_length);
+  cudaMalloc((void **)&device_scan, sizeof(int) * rounded_length);
+
+  // cudaMemcpy(device_input, device, N * sizeof(int), cudaMemcpyHostToDevice);
+  // cudaMemcpy(device_result, inarray, N * sizeof(int), cudaMemcpyHostToDevice);
+  int blocks = (N + THREADS_PER_BLOCK - 1)/THREADS_PER_BLOCK;
+  map_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_input, N, device_flags);
+  cudaDeviceSynchronize();
+
+  exclusive_sum(device_flags, rounded_length, device_scan);
+  cudaDeviceSynchronize();
+
+
 
   // int* 
 
   // exclusive_scan(device_input, length, device_output);
   // cudaDeviceSynchronize();
-  // int index = 0;
-  // for(int i = 0; i < length; i++) {
-  //   if(device_input[i] == 1) {
-  //     device_output[index] = i;
-  //     index++;
-  //   }
-  // }
-  return 0; 
+  int index = 0;
+  for(int i = 0; i < N; i++) {
+    if(device_scan[i] == 1) {
+      device_output[index] = i;
+      index++;
+    }
+  }
+  return index; 
 }
 
 
