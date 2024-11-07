@@ -305,7 +305,7 @@ __global__ void map_repeats(int* input, int N, int* output) {
 __global__ void get_repeats(int* scan, int* output, int* flags, int length) {
   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
   // if([threadIndex] == 1)
-  if(threadIndex < length - 1 && flags[threadIndex] == 1) {
+  if(threadIndex <= length - 1 && flags[threadIndex] == 1) {
     output[scan[threadIndex]] = threadIndex;
   }
 }
