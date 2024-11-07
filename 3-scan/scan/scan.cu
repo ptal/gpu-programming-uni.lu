@@ -324,7 +324,7 @@ int find_repeats(int* device_input, int length, int* device_output) {
   // the actual array length.
   int* device_flags;
   int* device_scan;
-  rounded_length = nextPow2(N);
+  int rounded_length = nextPow2(length);
 
   cudaMalloc((void **)&device_flags, sizeof(int) * rounded_length);
   cudaMalloc((void **)&device_scan, sizeof(int) * rounded_length);
@@ -335,7 +335,7 @@ int find_repeats(int* device_input, int length, int* device_output) {
   map_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_input, N, device_flags);
   cudaDeviceSynchronize();
 
-  exclusive_sum(device_flags, rounded_length, device_scan);
+  exclusive_scan(device_flags, rounded_length, device_scan);
   cudaDeviceSynchronize();
 
 
@@ -345,7 +345,7 @@ int find_repeats(int* device_input, int length, int* device_output) {
   // exclusive_scan(device_input, length, device_output);
   // cudaDeviceSynchronize();
   int index = 0;
-  for(int i = 0; i < N; i++) {
+  for(int i = 0; i < length; i++) {
     if(device_scan[i] == 1) {
       device_output[index] = i;
       index++;
