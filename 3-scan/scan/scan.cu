@@ -131,6 +131,10 @@ void exclusive_scan(int* input, int N, int* result)
     upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N, stride);
     cudaDeviceSynchronize();
   }
+
+  int zero = 0;
+  cudaMemcpy(result + N - 1, &zero, sizeof(int), cudaMemcpyHostToDevice);
+
   for(int stride = N/2; stride > 0; stride /= 2) {
     downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N, stride);
     cudaDeviceSynchronize();
