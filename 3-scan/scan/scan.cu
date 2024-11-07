@@ -55,14 +55,14 @@ void printDeviceArray(int* device_array, int N, const char* label) {
     delete[] host_array;
 }
 
-__global__ void downsweep(int* result,  int N) {    
-  // Ensure only the first thread of the first block sets the last element to 0
+__global__ void downsweep(int* result,  int N, int stride) {    
+  // // Ensure only the first thread of the first block sets the last element to 0
   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
-  if (threadIndex == 0) {
-      result[N - 1] = 0;
-  }
-  __syncthreads();
-  for(int stride = N/2; stride > 0; stride /= 2) {
+  // if (threadIndex == 0) {
+  //     result[N - 1] = 0;
+  // }
+  // __syncthreads();
+  // for(int stride = N/2; stride > 0; stride /= 2) {
     int jump = stride * 2;
     int leftIndex = threadIndex * jump + stride - 1;
     int rightIndex = threadIndex * jump + jump - 1;
@@ -72,12 +72,12 @@ __global__ void downsweep(int* result,  int N) {
       result[leftIndex] = temp;
     }
     __syncthreads();
-  }
+  // }
 }
 
-__global__ void upsweep(int* result,  int N) {
+__global__ void upsweep(int* result,  int N, int stride) {
   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
-  for(int stride = 1; stride < N; stride *= 2) {
+  // for(int stride = 1; stride < N; stride *= 2) {
     int jump = stride * 2;
     int leftIndex = threadIndex * jump + stride - 1;
     int rightIndex = threadIndex * jump + jump - 1;
@@ -85,7 +85,7 @@ __global__ void upsweep(int* result,  int N) {
       result[rightIndex] += result[leftIndex];
     }
     __syncthreads();
-  }
+  // }
 }
 
 // __global__ void upsweep(int* result, int N, int stride) {
@@ -127,14 +127,14 @@ void exclusive_scan(int* input, int N, int* result)
   // scan.
   // int rounded_N = nextPow2(N);
   int blocks = (N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-  // for(int stride = 1; stride < N; stride *= 2) {
-  upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
-  // }
-  cudaDeviceSynchronize();
-  // for(int stride = N/2; stride > 0; stride /= 2) {
-  downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N);
-  // }
-  cudaDeviceSynchronize();
+  for(int stride = 1; stride < N; stride *= 2) {
+    upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N, stride);
+    cudaDeviceSynchronize();
+  }
+  for(int stride = N/2; stride > 0; stride /= 2) {
+    downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N, stride);
+    cudaDeviceSynchronize();
+  }
 
   // Debug: print initial input
   // printDeviceArray(result, N, "Initial input copied to result");
