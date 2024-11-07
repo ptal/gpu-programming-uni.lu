@@ -67,7 +67,9 @@ __global__ void downsweep(int* result,  int N, int stride) {
     int leftIndex = threadIndex * jump + stride - 1;
     int rightIndex = threadIndex * jump + jump - 1;
     int splits = N / jump;
-    if(threadIndex < splits) {
+    //leftIndex <
+    //threadIndex < splits
+    if(leftIndex < N && rightIndex < N) {
       int temp = result[rightIndex];
       result[rightIndex] += result[leftIndex];
       result[leftIndex] = temp;
@@ -83,7 +85,7 @@ __global__ void upsweep(int* result,  int N, int stride) {
     int leftIndex = threadIndex * jump + stride - 1;
     int rightIndex = threadIndex * jump + jump - 1;
     int splits = N / jump;
-    if(threadIndex < splits) {
+    if(leftIndex < N && rightIndex < N) {
       result[rightIndex] += result[leftIndex];
     }
     // __syncthreads();
