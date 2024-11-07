@@ -140,7 +140,7 @@ void exclusive_scan(int* input, int N, int* result)
   for(int stride = 1; stride < N; stride *= 2) {
     int strided = 2 * stride;
     int num_blocks = (N / strided + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-    upsweep<<<num_blocks, THREADS_PER_BLOCK>>>(input, N, stride);
+    upsweep<<<num_blocks, THREADS_PER_BLOCK>>>(result, N, stride);
     cudaDeviceSynchronize();
   }
 
@@ -153,7 +153,7 @@ void exclusive_scan(int* input, int N, int* result)
   for(int stride = N/2; stride >= 1; stride /= 2) {
     int strided = 2 * stride;
     int num_blocks = (N / strided + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-    downsweep<<<num_blocks, THREADS_PER_BLOCK>>>(input, N, stride);
+    downsweep<<<num_blocks, THREADS_PER_BLOCK>>>(result, N, stride);
     cudaDeviceSynchronize();
   }
 
