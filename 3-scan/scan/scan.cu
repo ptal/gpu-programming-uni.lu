@@ -43,38 +43,38 @@ static inline int nextPow2(int n) {
 // "in-place" scan, since the timing harness makes a copy of input and
 // places it in result
 
-__global__ void downsweep(int* result,  int N, int stride) {    
-  // Ensure only the first thread of the first block sets the last element to 0
-  int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
-  // if (threadIndex == 0) {
-  //     result[N - 1] = 0;
-  // }
-  // __syncthreads();
-  // for(int stride = N/2; stride > 0; stride /= 2) {
-    int jump = stride * 2;
-    int leftIndex = threadIndex * jump + stride - 1;
-    int rightIndex = threadIndex * jump + jump - 1;
-    if(rightIndex < N) {
-      int temp = result[rightIndex];
-      result[rightIndex] += result[leftIndex];
-      result[leftIndex] = temp;
-    }
-  //   __syncthreads();
-  // }
-}
+// __global__ void downsweep(int* result,  int N, int stride) {    
+//   // Ensure only the first thread of the first block sets the last element to 0
+//   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
+//   // if (threadIndex == 0) {
+//   //     result[N - 1] = 0;
+//   // }
+//   // __syncthreads();
+//   // for(int stride = N/2; stride > 0; stride /= 2) {
+//     int jump = stride * 2;
+//     int leftIndex = threadIndex * jump + stride - 1;
+//     int rightIndex = threadIndex * jump + jump - 1;
+//     if(rightIndex < N) {
+//       int temp = result[rightIndex];
+//       result[rightIndex] += result[leftIndex];
+//       result[leftIndex] = temp;
+//     }
+//   //   __syncthreads();
+//   // }
+// }
 
-__global__ void upsweep(int* result,  int N, int stride) {
-  int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
-  // for(int stride = 1; stride < N; stride *= 2) {
-    int jump = stride * 2;
-    int leftIndex = threadIndex * jump + stride - 1;
-    int rightIndex = threadIndex * jump + jump - 1;
-    if(rightIndex < N) {
-      result[rightIndex] += result[leftIndex];
-    }
-  //   __syncthreads();
-  // }
-}
+// __global__ void upsweep(int* result,  int N, int stride) {
+//   int threadIndex = threadIdx.x + (blockDim.x * blockIdx.x);
+//   // for(int stride = 1; stride < N; stride *= 2) {
+//     int jump = stride * 2;
+//     int leftIndex = threadIndex * jump + stride - 1;
+//     int rightIndex = threadIndex * jump + jump - 1;
+//     if(rightIndex < N) {
+//       result[rightIndex] += result[leftIndex];
+//     }
+//   //   __syncthreads();
+//   // }
+// }
 
 
 // void exclusive_scan(int* input, int N, int* result)
@@ -103,29 +103,60 @@ __global__ void upsweep(int* result,  int N, int stride) {
 // }
 
 
-void exclusive_scan(int* input, int N, int* result) {
-    // Upsweep phase
-    for (int stride = 1; stride < N; stride *= 2) {
-        int num_threads = N / (2 * stride);
-        if (num_threads == 0) num_threads = 1;
-        int num_blocks = (num_threads + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-        upsweep<<<num_blocks, THREADS_PER_BLOCK>>>(result, N, stride);
-        cudaDeviceSynchronize();
-    }
-
-    // Set last element to 0 for exclusive scan
-    cudaMemset(result + N - 1, 0, sizeof(int));
-
-    // Downsweep phase
-    for (int stride = N/2; stride > 0; stride /= 2) {
-        int num_threads = N / (2 * stride);
-        if (num_threads == 0) num_threads = 1;
-        int num_blocks = (num_threads + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
-        downsweep<<<num_blocks, THREADS_PER_BLOCK>>>(result, N, stride);
-        cudaDeviceSynchronize();
+__global__ void upsweep_kernel(int* result, int N, int d) {
+    int tid = blockIdx.x * blockDim.x + threadIdx.x;
+    
+    int offset = 1 << d;  // 2^d
+    
+    if (tid < N/(2*offset)) {
+        int ai = offset * (2*tid + 1) - 1;
+        int bi = offset * (2*tid + 2) - 1;
+        result[bi] += result[ai];
     }
 }
 
+__global__ void downsweep_kernel(int* result, int N, int d) {
+    int tid = blockIdx.x * blockDim.x + threadIdx.x;
+    
+    int offset = 1 << d;  // 2^d
+    
+    if (tid < N/(2*offset)) {
+        int ai = offset * (2*tid + 1) - 1;
+        int bi = offset * (2*tid + 2) - 1;
+        
+        int t = result[ai];
+        result[ai] = result[bi];
+        result[bi] += t;
+    }
+}
+
+__global__ void clear_last_element(int* result, int N) {
+    result[N-1] = 0;
+}
+
+void exclusive_scan(int* input, int N, int* result) {
+    // Reduction step (upsweep)
+    for (int d = 0; d < log2(N); d++) {
+        int threads = N/(2*(1<<d));
+        if (threads == 0) threads = 1;
+        int blocks = (threads + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+        upsweep_kernel<<<blocks, THREADS_PER_BLOCK>>>(result, N, d);
+        cudaDeviceSynchronize();
+    }
+    
+    // Clear the last element
+    clear_last_element<<<1, 1>>>(result, N);
+    cudaDeviceSynchronize();
+    
+    // Distribution step (downsweep)
+    for (int d = log2(N)-1; d >= 0; d--) {
+        int threads = N/(2*(1<<d));
+        if (threads == 0) threads = 1;
+        int blocks = (threads + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+        downsweep_kernel<<<blocks, THREADS_PER_BLOCK>>>(result, N, d);
+        cudaDeviceSynchronize();
+    }
+}
 //
 // cudaScan --
 //
