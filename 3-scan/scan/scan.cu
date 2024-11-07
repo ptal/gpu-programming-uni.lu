@@ -71,7 +71,7 @@ __global__ void downsweep(int* result,  int N, int stride) {
       result[rightIndex] += result[leftIndex];
       result[leftIndex] = temp;
     }
-    __syncthreads();
+    // __syncthreads();
   // }
 }
 
@@ -84,7 +84,7 @@ __global__ void upsweep(int* result,  int N, int stride) {
     if(rightIndex < N) {
       result[rightIndex] += result[leftIndex];
     }
-    __syncthreads();
+    // __syncthreads();
   // }
 }
 
@@ -126,9 +126,11 @@ void exclusive_scan(int* input, int N, int* result)
   // to CUDA kernel functions (that you must write) to implement the
   // scan.
   // int rounded_N = nextPow2(N);
-  int blocks = (N + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+  
   for(int stride = 1; stride < N; stride *= 2) {
-    upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N, stride);
+    int strided = 2 * stride;
+    int num_blocks = (N / strided + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+    upsweep<<<num_blocks, THREADS_PER_BLOCK>>>(result, N, stride);
     cudaDeviceSynchronize();
   }
 
@@ -136,7 +138,9 @@ void exclusive_scan(int* input, int N, int* result)
   cudaMemcpy(result + N - 1, &zero, sizeof(int), cudaMemcpyHostToDevice);
 
   for(int stride = N/2; stride > 0; stride /= 2) {
-    downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, N, stride);
+    int strided = 2 * stride;
+    int num_blocks = (N / strided + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+    downsweep<<<num_blocks, THREADS_PER_BLOCK>>>(result, N, stride);
     cudaDeviceSynchronize();
   }
 
