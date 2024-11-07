@@ -111,7 +111,7 @@ void exclusive_scan(int* input, int N, int* result)
 
     // Upsweep phase - separate kernel launches for each stride
     for (int stride = 1; stride < rounded_N; stride *= 2) {
-        upsweep_kernel<<<blocks, THREADS_PER_BLOCK>>>(result, stride, rounded_N);
+        upsweep<<<blocks, THREADS_PER_BLOCK>>>(result, stride, rounded_N);
         cudaDeviceSynchronize();  // Global synchronization
     }
 
@@ -122,7 +122,7 @@ void exclusive_scan(int* input, int N, int* result)
 
     // Downsweep phase - separate kernel launches for each stride
     for (int stride = rounded_N / 2; stride > 0; stride /= 2) {
-        downsweep_kernel<<<blocks, THREADS_PER_BLOCK>>>(result, stride, rounded_N);
+        downsweep<<<blocks, THREADS_PER_BLOCK>>>(result, stride, rounded_N);
         cudaDeviceSynchronize();  // Global synchronization
     }
 }
