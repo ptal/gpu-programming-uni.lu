@@ -96,6 +96,8 @@ __global__ void upsweep(int* result, int N, int stride) {
     int jump = threadId * strided;
     result[jump + strided - 1] += result[jump + stride - 1];
   }
+  __syncthreads();
+  printDeviceArray(result, N, "UP SWEEP AFTER");
 }
 
 __global__ void downsweep(int* result, int N, int stride) {
