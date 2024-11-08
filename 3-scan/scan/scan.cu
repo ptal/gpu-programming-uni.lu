@@ -299,7 +299,6 @@ __global__ void map_repeats(int* input, int N, int* output) {
       output[threadIndex] = 0;
     }
   }
-  // Explicitly set last element to 0
   if(threadIndex == N - 1) {
       output[threadIndex] = 0;
   }
@@ -350,7 +349,7 @@ int find_repeats(int* device_input, int length, int* device_output) {
   exclusive_scan(device_flags, rounded_length, device_scan);
   cudaDeviceSynchronize();
 
-  // printDeviceArray(device_scan, length, "DEVICE SCANNN");
+  printDeviceArray(device_scan, length, "DEVICE SCANNN");
 
   int total_repeats;
   cudaMemcpy(&total_repeats,  device_scan + length - 1, sizeof(int), cudaMemcpyDeviceToHost);
