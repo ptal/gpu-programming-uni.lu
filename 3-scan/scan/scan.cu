@@ -339,6 +339,8 @@ int find_repeats(int* device_input, int length, int* device_output) {
   cudaMalloc((void **)&device_flags, sizeof(int) * rounded_length);
   cudaMalloc((void **)&device_scan, sizeof(int) * rounded_length);
 
+  printDeviceArray(device_flags, length, "DEVICE INPUT");
+
   // cudaMemcpy(device_input, device, N * sizeof(int), cudaMemcpyHostToDevice);
   // cudaMemcpy(device_result, inarray, N * sizeof(int), cudaMemcpyHostToDevice);
   int blocks = (length + THREADS_PER_BLOCK - 1)/THREADS_PER_BLOCK;
