@@ -349,6 +349,8 @@ int find_repeats(int* device_input, int length, int* device_output) {
 
   printDeviceArray(device_flags, length, "DEVICE MAP");
 
+  cudaMemcpy(device_scan, device_flags, length * sizeof(int), cudaMemcpyHostToDevice);
+
   // cudaMemset(device_flags + length - 1, 0, sizeof(int) * (rounded_length - length + 1));
   exclusive_scan(device_flags, rounded_length, device_scan);
   cudaDeviceSynchronize();
