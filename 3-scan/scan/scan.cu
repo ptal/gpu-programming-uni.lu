@@ -382,7 +382,7 @@ int find_repeats(int* device_input, int length, int* device_output) {
   cudaFree(device_flags);
   cudaFree(device_scan);
   
-  return device_scan + length - 1;
+  return total_repeats;
 }
 
 
