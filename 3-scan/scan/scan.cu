@@ -350,6 +350,8 @@ int find_repeats(int* device_input, int length, int* device_output) {
   exclusive_scan(device_flags, rounded_length, device_scan);
   cudaDeviceSynchronize();
 
+  printDeviceArray(device_scan, length, "DEVICE SCANNN");
+
   int total_repeats;
   cudaMemcpy(&total_repeats, &device_scan[length - 1], sizeof(int), cudaMemcpyDeviceToHost);
 
