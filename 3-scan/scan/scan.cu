@@ -337,8 +337,8 @@ int find_repeats(int* device_input, int length, int* device_output) {
   int* device_scan;
   int rounded_length = nextPow2(length);
 
-  cudaMalloc(&device_flags, sizeof(int) * rounded_length);
-  cudaMalloc(&device_scan, sizeof(int) * rounded_length);
+  cudaMalloc((void **)&device_flags, sizeof(int) * rounded_length);
+  cudaMalloc((void **)&device_scan, sizeof(int) * rounded_length);
 
   // cudaMemcpy(device_input, device, N * sizeof(int), cudaMemcpyHostToDevice);
   // cudaMemcpy(device_result, inarray, N * sizeof(int), cudaMemcpyHostToDevice);
@@ -346,14 +346,14 @@ int find_repeats(int* device_input, int length, int* device_output) {
   map_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_input, length, device_flags);
   cudaDeviceSynchronize();
 
-  cudaMemset(device_flags + length - 1, 0, sizeof(int) * (rounded_length - length + 1));
+  // cudaMemset(device_flags + length - 1, 0, sizeof(int) * (rounded_length - length + 1));
   exclusive_scan(device_flags, rounded_length, device_scan);
   cudaDeviceSynchronize();
 
   printDeviceArray(device_scan, length, "DEVICE SCANNN");
 
-  // int total_repeats;
-  // cudaMemcpy(&total_repeats, &device_scan[length - 1], sizeof(int), cudaMemcpyDeviceToHost);
+  int total_repeats;
+  cudaMemcpy(&total_repeats,  device_scan + length - 1, sizeof(int), cudaMemcpyDeviceToHost);
 
   get_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_scan, device_output, device_flags, length);
   cudaDeviceSynchronize();
