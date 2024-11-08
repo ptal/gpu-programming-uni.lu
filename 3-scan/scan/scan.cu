@@ -350,11 +350,25 @@ int find_repeats(int* device_input, int length, int* device_output) {
   exclusive_scan(device_flags, rounded_length, device_scan);
   cudaDeviceSynchronize();
 
-  int total_repeats;
-  cudaMemcpy(&total_repeats, device_scan + length - 1, sizeof(int), cudaMemcpyDeviceToHost);
+  // int total_repeats;
+  // cudaMemcpy(&total_repeats, device_scan + length - 1, sizeof(int), cudaMemcpyDeviceToHost);
 
-  get_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_scan, device_output, device_flags, length);
-  cudaDeviceSynchronize();
+  // get_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_scan, device_output, device_flags, length);
+  // cudaDeviceSynchronize();
+
+
+// Get total number of repeats before the last element
+    int last_element, last_flag;
+    cudaMemcpy(&last_element, &device_scan[length-1], sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&last_flag, &device_flags[length-2], sizeof(int), cudaMemcpyDeviceToHost);
+    
+    // Total is the last scanned value plus the last flag
+    int total_repeats = last_element + last_flag;
+
+    get_repeats<<<blocks, THREADS_PER_BLOCK>>>(device_scan, device_output, device_flags, length);
+    cudaDeviceSynchronize();
+
+
   // int* 
 
   // exclusive_scan(device_input, length, device_output);
