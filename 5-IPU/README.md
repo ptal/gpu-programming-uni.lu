@@ -2,7 +2,7 @@
 
 In this tutorial we are going to use a software emulator for the IPU. I suggest that you work in a normal CPU cluster node. Taking 7 cores in an Iris node should be sufficient:
 ```bash
-sallonc --partition=interactive --qos=normal --time=2:00:00 --ntasks=1 --cpus-per-task=7
+salloc --partition=interactive --qos=debug --time=2:00:00 --ntasks=1 --cpus-per-task=7
 ```
 Download the development framework, Poplar SKD, from the [Grpahcore website](https://www.graphcore.ai/downloads):
 ```bash
