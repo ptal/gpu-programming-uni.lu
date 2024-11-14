@@ -32,3 +32,4 @@ This directory contains examples with Poplar, a low level library for programmin
     - [Poplar and PopLibs User Guide](https://docs.graphcore.ai/projects/poplar-user-guide/en/latest/)
     - [Poplar and PopLibs API Reference](https://docs.graphcore.ai/projects/poplar-api/en/latest/)
 - [A Dictionary of Graphcore Terminology](https://docs.graphcore.ai/projects/graphcore-glossary/en/latest/): Explanations of the terminology related to Graphcore infrastructure and links to resources.
+- [Tile Vertex ISA - IPU21 (Release 1.3.1)](https://docs.graphcore.ai/projects/isa/en/latest/_static/TileVertexISA-IPU21-1.3.1.pdf): The instruction set architecture for the tile cores.
