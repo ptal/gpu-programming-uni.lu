@@ -34,7 +34,12 @@ void saxpy(float scale, const std::vector<float>& X, const std::vector<float>& Y
 
 The project description is [available here](https://github.com/ptal/gpu-programming-uni.lu/tree/main/3-scan/README.md).
 
-### Acknowledgments
+## CUDA Stream `6-cuda-stream/histogram`
+
+* Implement a GPU version of the histogram computation.
+* Profile your code with `nsys` and use CUDA streams to improve the efficiency.
+
+## Acknowledgments
 
 Some exercises are inspired from the course [Parallel Computing](https://gfxcourses.stanford.edu/cs149/fall23/) at Stanford and used with the permission of Kayvon Fatahalian.
 Thanks to him and his teaching team!
