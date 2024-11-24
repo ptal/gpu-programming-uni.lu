@@ -39,6 +39,10 @@ The project description is [available here](https://github.com/ptal/gpu-programm
 * Implement a GPU version of the histogram computation.
 * Profile your code with `nsys` and use CUDA streams to improve the efficiency.
 
+## Project: Matrix Multiplication
+
+The project description is [available here](https://github.com/ptal/gpu-programming-uni.lu/blob/main/4-matrix-computation/project/README.md).
+
 ## Acknowledgments
 
 Some exercises are inspired from the course [Parallel Computing](https://gfxcourses.stanford.edu/cs149/fall23/) at Stanford and used with the permission of Kayvon Fatahalian.
