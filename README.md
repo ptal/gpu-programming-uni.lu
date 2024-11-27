@@ -43,6 +43,13 @@ The project description is [available here](https://github.com/ptal/gpu-programm
 
 The project description is [available here](https://github.com/ptal/gpu-programming-uni.lu/blob/main/4-matrix-computation/project/README.md).
 
+## Memory Transaction
+
+* Investigate on the example `7-memory-transaction/exercises/grid_min.cu` for how many blocks the coalesced and non-coalesced versions are almost equivalent in terms of performance. Explain why.
+* In `7-memory-transaction/exercises/grid_min_bank.cu`: Use shared memory on the example `7-memory-transaction/exercises/grid_min.cu` and find a way to avoid bank conflicts.
+* In 2D arrays, why does the width of the array should be a multiple of 32?
+* Read [this article](https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-parallel-prefix-sum-scan-cuda) to understand how to optimize prefix sum to avoid bank conflicts.
+
 ## Acknowledgments
 
 Some exercises are inspired from the course [Parallel Computing](https://gfxcourses.stanford.edu/cs149/fall23/) at Stanford and used with the permission of Kayvon Fatahalian.
