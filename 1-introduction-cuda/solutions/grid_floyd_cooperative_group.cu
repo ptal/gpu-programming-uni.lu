@@ -53,13 +53,11 @@ int main(int argc, char** argv) {
 
   // III. Running Floyd Warshall on the whole GPU grid.
   long gpu_ms = benchmark_one_ms([&]{
-    for(int k = 0; k < n; ++k) {
-      void* args[] = {&gpu_distances, &n};
-      dim3 dimBlock(threads_per_block, 1, 1);
-      dim3 dimGrid(num_blocks, 1, 1);
-      CUDIE(cudaLaunchCooperativeKernel((void*)floyd_warshall_gpu, dimGrid, dimBlock, args));
-      CUDIE(cudaDeviceSynchronize());
-    }
+    void* args[] = {&gpu_distances, &n};
+    dim3 dimBlock(threads_per_block, 1, 1);
+    dim3 dimGrid(num_blocks, 1, 1);
+    CUDIE(cudaLaunchCooperativeKernel((void*)floyd_warshall_gpu, dimGrid, dimBlock, args));
+    CUDIE(cudaDeviceSynchronize());
   });
   std::cout << "GPU: " << gpu_ms << " ms" << std::endl;
 
