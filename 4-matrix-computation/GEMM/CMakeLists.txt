@@ -18,6 +18,7 @@ endif()
 
 include(CMakePrintHelpers)
 
+find_package(CUDA REQUIRED)
 find_package(BLAS REQUIRED)
 set(BLAS_ROOT_DIRS "")
 foreach(lib ${BLAS_LIBRARIES})
@@ -52,5 +53,5 @@ set_property(TARGET gpu_gemm PROPERTY CUDA_ARCHITECTURES 70)
 set_property(TARGET gpu_gemm APPEND PROPERTY CUDA_SEPARABLE_COMPILATION ON)
 
 target_compile_options(gpu_gemm PRIVATE ${compile_options})
-target_link_libraries(gpu_gemm PRIVATE BLAS::BLAS)
+target_link_libraries(gpu_gemm PRIVATE BLAS::BLAS ${CUDA_CUBLAS_LIBRARIES} ${CUDA_LIBRARIES})
 target_include_directories(gpu_gemm PRIVATE ${BLAS_INCLUDE_DIRS})
