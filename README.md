@@ -50,6 +50,15 @@ The project description is [available here](https://github.com/ptal/gpu-programm
 * In 2D arrays, why does the width of the array should be a multiple of 32?
 * Read [this article](https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-parallel-prefix-sum-scan-cuda) to understand how to optimize prefix sum to avoid bank conflicts.
 
+## Matrix Representation and Graph Traversal
+
+* [⭐⭐] Program a GPU kernel converting a COO matrix into a CSR matrix (hint: use histogram and prefix sum algorithms).
+* Define the Compressed Sparse Column Format (CSC), which is similar to CSR but using column indexing.
+* Analyse and give the properties of the hybrid ELL-COO format.
+* Implement either top-down or bottom-up BFS, following the algorithms seen in class.
+* [⭐] It is possible to implement the BFS algorithms using only BLAS operations. Think about how to do it.
+* [⭐⭐] Implement it using [cuBLAS](https://docs.nvidia.com/cuda/cublas/) and compare its efficiency with the previous implementation.
+
 ## Acknowledgments
 
 Some exercises are inspired from the course [Parallel Computing](https://gfxcourses.stanford.edu/cs149/fall23/) at Stanford and used with the permission of Kayvon Fatahalian.
