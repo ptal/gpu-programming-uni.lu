@@ -20,16 +20,21 @@ struct DenseMatrix {
 
 template<typename T>
 DenseMatrix<T>::DenseMatrix(size_t const _nnz) :
-  data(new T[_nnz]),
+  data(nullptr),
   m(0),
   n(0),
   ld(0),
   nnz(_nnz)
-{}
+{
+  data = new T[_nnz];
+}
 
 template<typename T>
 DenseMatrix<T>::~DenseMatrix() {
-  delete[] data;
+  if (data) {
+    delete[] data;
+    data = nullptr;
+  }
 }
 
 template<typename T>
