@@ -59,6 +59,12 @@ The project description is [available here](https://github.com/ptal/gpu-programm
 * [⭐] It is possible to implement the BFS algorithms using only BLAS operations. Think about how to do it.
 * [⭐⭐] Implement it using [cuBLAS](https://docs.nvidia.com/cuda/cublas/) and compare its efficiency with the previous implementation.
 
+## CUDA Optimization
+
+* Using cooperative groups (see `grid_floyd_cooperative_group.cu`), implement the two loops of Brent-Kung prefix sum as a single kernel using grid-wide synchronization.
+* Use shared memory in the Kogge-Stone algorithm (scan-v5).
+* Use warp primitives to implement some elements of `find_repeat` in the prefix sum project.
+
 ## Acknowledgments
 
 Some exercises are inspired from the course [Parallel Computing](https://gfxcourses.stanford.edu/cs149/fall23/) at Stanford and used with the permission of Kayvon Fatahalian.
