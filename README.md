@@ -1,6 +1,11 @@
 # GPU Programming Course @University of Luxembourg
 
-Exercises for the course GPU Programming @University of Luxembourg
+Exercises for the course GPU Programming @University of Luxembourg.
+
+## Resources
+
+* The book "Programming massively parallel processors 4th edition" is a valuable resource.
+* The CUDA online courses with the code given on Moodle can also be helpful.
 
 ## Introduction to CUDA Programming (`1-introduction-cuda`)
 
